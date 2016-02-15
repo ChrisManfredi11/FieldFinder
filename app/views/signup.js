@@ -16,7 +16,7 @@ class Login extends React.Component{
   goToSpotLight(){
     this.props.navigator.push({
       component: SpotLight,
-      title: 'Spot Light',
+      title: 'Sports Hub',
     })
   }
 

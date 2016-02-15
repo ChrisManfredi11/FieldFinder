@@ -1,10 +1,11 @@
 'use strict';
 
 var React = require('react-native'),
-    Favorites = require('./favorites'),
-    Account = require('./myaccount'),
-    Details = require('./details');
-
+    Favorites = require('../views/favorites'),
+    Account = require('../views/myaccount'),
+    Details = require('../views/details'),
+    TabBar = require('../components/tabbar');
+    
 var {
   AppRegistry,
   StyleSheet,
@@ -64,6 +65,8 @@ class SpotLight extends React.Component{
 
     renderCourts(tennis) {
        return (
+        <View>
+       <View>
           <TouchableHighlight
               onPress={this.goToDetails.bind(this)}>
                 <View>
@@ -82,6 +85,8 @@ class SpotLight extends React.Component{
                     <View style={styles.separator} />
                 </View>
             </TouchableHighlight>
+            </View>
+          </View>
     )
   }
 };

@@ -1,10 +1,10 @@
 'use strict';
 
 var React = require('react-native'),
-    Login = require('./app/components/login'),
-    SpotLight = require('./app/components/spotlight'),
-    Favorites = require('./app/components/favorites'),
-    Account = require('./app/components/myaccount');
+    Login = require('./app/views/login'),
+    SpotLight = require('./app/views/spotlight'),
+    Favorites = require('./app/views/favorites'),
+    Account = require('./app/views/myaccount');
 
 var {
   AppRegistry,
@@ -25,7 +25,7 @@ class FieldFinder extends React.Component {
           title: 'Login',
           component: Login
       }}/>
-    );
+    )
   }
 };
 
@@ -40,7 +40,6 @@ var styles = StyleSheet.create({
   welcome: {
     fontSize: 20,
     textAlign: 'center',
-    margin: 10,
   },
   instructions: {
     textAlign: 'center',

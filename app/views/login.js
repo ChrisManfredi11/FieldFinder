@@ -1,8 +1,9 @@
 'use strict';
 
 var React = require('react-native'),
-    SpotLight = require('./spotlight'),
-    SignUp = require('./signup');
+    Root = require('./root'),
+    SignUp = require('./signup'),
+    MyAccount = require('./myaccount');
 
 
 var {
@@ -23,11 +24,13 @@ var {
   FBSDKAccessToken,
 } = FBSDKCore;
 
+var userID = 'https://graph.facebook.com/v2.4/me?fields=picture&access_token=CAACEdEose0cBAPcxWZCZCl2ccZBD5eHvuiCi8NbLZBhwsehScEqYzZByo9IrebiZCOOcG344YSs2XXkFqyIFZApdxO6KRQZBiylZAHSn0frM8QbxuFGnwRI91ZAekBPr5QcZAuxidraZAjv0xnaHJZBuiNskmZC0ci5AHbBJsqRnnMGY9qpsiNs0v4ZAxoDVosH2seFDv9sljNEILmxyNRTmZCSG2pAG'
+
 class Login extends React.Component{
-  goToSpotLight(){
+  goToRoot(){
     this.props.navigator.push({
-      component: SpotLight,
-      title: 'Spot Light',
+      component: Root,
+      title: 'Sports Hub',
     })
   }
 
@@ -37,24 +40,32 @@ class Login extends React.Component{
       title: 'Sign Up',
     })
   }
+  
+  goToMyAccount(){
+    this.props.navigator.push({
+      component: MyAccount,
+      title: 'My Account',
+    })
+  }
   render(){
     return(
       <View style={styles.mainContainer}>
         <View style={styles.loginContainer}>
+
           <Text style={styles.loginTitle}> Login To Account </Text>
           <TextInput style={styles.searchInput} placeholder="Enter Username"
   placeholderTextColor="black"/>
           <TextInput style={styles.searchInput} placeholder="Enter Password"
   placeholderTextColor="black"/>
-          <TouchableHighlight onPress={this.goToSpotLight.bind(this)} placeholder="Username" style={styles.loginButton}>
+          <TouchableHighlight onPress={this.goToRoot.bind(this)} placeholder="Username" style={styles.loginButton}>
             <Text style={styles.loginbuttonText}> Login </Text>
           </TouchableHighlight>
           <TouchableHighlight onPress={this.goToSignup.bind(this)}>
-            <Text style={styles.forgotPassword}> Create An Account </Text>
+            <Text style={styles.forgotPassword }> Create An Account </Text>
           </TouchableHighlight>
         </View>
         <View style={styles.socialmediaContainer}>
-          <TouchableHighlight style={styles.facebookButton}>
+          <TouchableHighlight onPress={this.goToRoot.bind(this)} style={styles.facebookButton}>
                   <View style={this.props.style}>
         <FBSDKLoginButton
           style={styles.facebookButton}
@@ -65,7 +76,7 @@ class Login extends React.Component{
               } else {
                 alert('Start logging out.');
               }
-            });
+            }, '/me');
             return true;
           }}
           onLoginFinished={(error, result) => {
@@ -77,6 +88,7 @@ class Login extends React.Component{
               } else {
                 alert('Logged in.');
               }
+
             }
           }}
           onLogoutFinished={() => alert('Logged out.')}
@@ -84,9 +96,6 @@ class Login extends React.Component{
           publishPermissions={[]}/>
       </View>
     </TouchableHighlight>
-          <TouchableHighlight style={styles.twitterButton}>
-            <Text style={styles.socialbuttonText}> Connect With Twitter</Text>
-          </TouchableHighlight>
         </View>
       </View>
     )
@@ -94,6 +103,10 @@ class Login extends React.Component{
 };
 
 var styles = StyleSheet.create({
+    userImage: {
+      height: 200,
+      width: 200,
+    },
     disclaimerContainer: {
     flex: 0.075,
     alignItems: 'center',
