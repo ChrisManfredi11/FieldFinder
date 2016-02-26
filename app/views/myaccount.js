@@ -12,48 +12,88 @@ var {
   Image,
 } = React;
 
-class Login extends React.Component{
+var FBSDKCore = require('react-native-fbsdkcore');
+var {
+  FBSDKAccessToken,
+} = FBSDKCore;
+
+var {
+  FBSDKGraphRequest,
+} = FBSDKCore;
+
+var Login = React.createClass ({
   goToSpotLight(){
     this.props.navigator.push({
       component: SpotLight,
       title: 'Spot Light',
     })
-  }
+  },
 
   goToSignup(){
     this.props.navigator.push({
       component: SignUp,
       title: 'Sign Up',
     })
-  }
+  },
+
+  getInitialState(){
+
+     var fetchFriendsRequest = new FBSDKGraphRequest((error, result) => {
+      if (error) {
+      alert('Error making request.');
+      } else {
+      this.setState({
+        pic: result.picture.data.url,
+        age: result.age_range.min,
+        name: result.name,
+        email: result.email,
+        gender: result.gender
+
+      });
+      console.log(result);
+      }
+    }, '/me?fields=id,name,age_range,gender,picture.type(large)');  
+    fetchFriendsRequest.start();
+
+    return {
+      pic: null,
+      email: null,
+      gender: null,
+      age: null,
+      name: null
+    };
+  },
+  
   render(){
+    var pic = this.state.pic,
+    age = this.state.age,
+    name = this.state.name,
+    gender = this.state.gender;
     return(
       <View style={styles.mainContainer}>
           <View style={styles.detailsContainer}>
-            <Image
-              style={styles.image}
-              source={require('../Images/profilepic.jpg')}>
-          </Image>
+          <Image style={styles.image} source={{uri: pic}}/>
 
-            <Text style={styles.detailsHeader}> Full Name </Text>
-            <Text style={styles.headerDetails}> Justin Derico Suavey </Text>
+            <Text style={styles.detailsHeader}> Name </Text>
+            <Text style={styles.headerDetails}> {name}</Text>
 
             <Text style={styles.detailsHeader}> Age </Text>
-            <Text style={styles.headerDetails}> 25 </Text>
+            <Text style={styles.headerDetails}> {age} </Text>
 
+            <Text style={styles.detailsHeader}> Gender </Text>
+            <Text style={styles.headerDetails}> {gender} </Text>
           </View>
 
 
         </View>
     )
   }
-};
+});
 
 var styles = StyleSheet.create({
   mainContainer: {
     flex: 1,
     justifyContent: 'center',
-    alignItems: 'center',
     backgroundColor: '#252525',
   },
   detailsContainer: {
@@ -65,6 +105,7 @@ var styles = StyleSheet.create({
     marginTop: 120,
     borderRadius: 70,
     paddingRight: 30,
+    marginLeft: 115,
   },
   locationName: {
     color: 'white',
@@ -75,10 +116,12 @@ var styles = StyleSheet.create({
     color: 'green',
     fontSize: 14,
     marginTop: 20,
+    marginLeft: 10,
   },
   headerDetails: {
     color: 'white',
-    fontSize: 16,
+    fontSize: 18,
+    marginLeft: 10,
   },
 
 });

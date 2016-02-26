@@ -12,7 +12,7 @@ var {
   Image,
 } = React;
 
-class Login extends React.Component{
+class Details extends React.Component{
   goToSpotLight(){
     this.props.navigator.push({
       component: SpotLight,
@@ -89,4 +89,4 @@ var styles = StyleSheet.create({
 
 });
 
-module.exports = Login;
+module.exports = Details;

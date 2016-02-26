@@ -1,8 +1,9 @@
 'use strict';
 
 var React = require('react-native'),
+    Firebase = require('firebase'),
     Root = require('./root'),
-    SignUp = require('./signup'),
+    Filters = require('./filters'),
     MyAccount = require('./myaccount');
 
 
@@ -24,7 +25,8 @@ var {
   FBSDKAccessToken,
 } = FBSDKCore;
 
-var userID = 'https://graph.facebook.com/v2.4/me?fields=picture&access_token=CAACEdEose0cBAPcxWZCZCl2ccZBD5eHvuiCi8NbLZBhwsehScEqYzZByo9IrebiZCOOcG344YSs2XXkFqyIFZApdxO6KRQZBiylZAHSn0frM8QbxuFGnwRI91ZAekBPr5QcZAuxidraZAjv0xnaHJZBuiNskmZC0ci5AHbBJsqRnnMGY9qpsiNs0v4ZAxoDVosH2seFDv9sljNEILmxyNRTmZCSG2pAG'
+var ref = ("https://sportshub.firebaseio.com");
+
 
 class Login extends React.Component{
   goToRoot(){
@@ -34,10 +36,10 @@ class Login extends React.Component{
     })
   }
 
-  goToSignup(){
+  goToFilters(){
     this.props.navigator.push({
-      component: SignUp,
-      title: 'Sign Up',
+      component: Filters,
+      title: 'Filters',
     })
   }
   
@@ -47,22 +49,29 @@ class Login extends React.Component{
       title: 'My Account',
     })
   }
+createUser(){
+ref.createUser({
+  email    : "bobtony@firebase.com",
+  password : "correcthorsebatterystaple"
+}, function(error, userData) {
+  if (error) {
+    console.log("Error creating user:", error);
+  } else {
+    console.log("Successfully created user account with uid:", userData.uid);
+  }
+});
+}
   render(){
     return(
       <View style={styles.mainContainer}>
         <View style={styles.loginContainer}>
 
-          <Text style={styles.loginTitle}> Login To Account </Text>
-          <TextInput style={styles.searchInput} placeholder="Enter Username"
-  placeholderTextColor="black"/>
-          <TextInput style={styles.searchInput} placeholder="Enter Password"
-  placeholderTextColor="black"/>
-          <TouchableHighlight onPress={this.goToRoot.bind(this)} placeholder="Username" style={styles.loginButton}>
+                  <TouchableHighlight onPress={this.goToRoot.bind(this)} placeholder="Username" style={styles.loginButton}>
             <Text style={styles.loginbuttonText}> Login </Text>
           </TouchableHighlight>
-          <TouchableHighlight onPress={this.goToSignup.bind(this)}>
-            <Text style={styles.forgotPassword }> Create An Account </Text>
-          </TouchableHighlight>
+
+          <Text style={styles.loginTitle}> Login to Facebook </Text>
+
         </View>
         <View style={styles.socialmediaContainer}>
           <TouchableHighlight onPress={this.goToRoot.bind(this)} style={styles.facebookButton}>
@@ -131,7 +140,7 @@ var styles = StyleSheet.create({
     backgroundColor: 'transparent',
   },
   loginButton: {
-    width: 200,
+    width: 170,
     height: 50,
     shadowRadius: 5,
     shadowColor: '#000000',
@@ -176,7 +185,6 @@ var styles = StyleSheet.create({
     fontSize: 24,
     color: 'white',
     marginTop: 30,
-    marginLeft: 50,
   },
   searchInput: {
     flex: 1,
@@ -215,14 +223,14 @@ var styles = StyleSheet.create({
     alignSelf: 'center',
   },
   facebookButton: {
-    height: 80,
+    height: 75,
     flexDirection: 'row',
     backgroundColor: '#3b5998',
     borderColor: 'white',
     borderWidth: 1,
     alignSelf: 'stretch',
     justifyContent: 'center',
-    width: 450,
+    width: 330,
   },
   twitterButton: {
     height: 80,

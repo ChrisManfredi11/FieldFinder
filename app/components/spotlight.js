@@ -16,27 +16,25 @@ var {
   Image,
   TabBarIOS,
   ListView,
+  Navigator,
 } = React;
 
-var LocationURL = 'https://api.import.io/store/connector/c8acc07e-f5ed-48f8-9424-ac27fa49fb2f/_query?input=webpage/url:http%3A%2F%2Fwww.tennisround.com%2Ftennis-courts%2Ffl%2Forlando&&_apikey=2f5b2982f0034a4aa4d8cab5bdec8b4106b2f25ec1e190c68a974af6416c4bed47be1f19b5c0d358eb3809c24629081a0402f2c5ca9c71576c267afca68e22f47448553daa33ab0f97363a3a065b2418';
+var LocationURL = `https://maps.googleapis.com/maps/api/place/nearbysearch/json?key=AIzaSyCNeZ03YXpy8AyPJrkVv7nKw7tswfWj-qM&radius=5000&keyword=tenniscourt&location=28.5959,-81.3437`;
 
 class SpotLight extends React.Component{
-  goToDetails(){
-    this.props.navigator.push({
-      component: Details,
-      title: 'Location Details',
-    })
-  }
-
   constructor(props) {
          super(props);
          this.state = {
+            usertype: '',
+            photoImage: 'null',
              isLoading: true,
              dataSource: new ListView.DataSource({
                  rowHasChanged: (row1, row2) => row1 !== row2
              })
          };
      }
+
+     
 
   componentDidMount() {
        this.fetchData();
@@ -50,10 +48,19 @@ class SpotLight extends React.Component{
                dataSource: this.state.dataSource.cloneWithRows(responseData.results),
                isLoading: false
            });
+
        })
        .done();
    }
+
+     goToDetails(){
+    this.props.navigator.push({
+      component: Details,
+      title: 'Details Page',
+    });
+  }
   render(){
+  
     return(
       <ListView
         dataSource={this.state.dataSource}
@@ -64,29 +71,43 @@ class SpotLight extends React.Component{
 
 
     renderCourts(tennis) {
-       return (
-        <View>
-       <View>
+      if(tennis.photos) {
+        var photoreference = tennis.photos[0].photo_reference;
+        console.log(photoreference);
+
+        var urlDeff = 'https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=';
+
+        var apiKey = '&key=AIzaSyCNeZ03YXpy8AyPJrkVv7nKw7tswfWj-qM';
+
+        var urlTest = urlDeff + photoreference + apiKey;
+      }
+      else {
+        urlTest = "";
+      }
+      
+
+      // var PlacesPhoto = 'https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=CnRtAAAATLZNl354RwP_9UKbQ_5Psy40texXePv4oAlgP4qNEkdIrkyse7rPXYGd9D_Uj1rVsQdWT4oRz4QrYAJNpFX7rzqqMlZw2h2E2y5IKMUZ7ouD_SlcHxYq1yL4KbKUv3qtWgTK0A6QbGh87GB3sscrHRIQiG2RrmU_jF4tENr9wGS_YxoUSSDrYjWmrNfeEHSGSc3FyhNLlBU&key=AIzaSyCNeZ03YXpy8AyPJrkVv7nKw7tswfWj-qM';
+
+
+
+      return (
+      <View style={styles.mainContainer}>
           <TouchableHighlight
-              onPress={this.goToDetails.bind(this)}>
-                <View>
-                    <View style={styles.mainContainer}>
-                    
-                    <Image
-                      source={{uri: 'http://2.imimg.com/data2/MR/FF/MY-3897676/tennis-court-500x500.jpg'}}
-                      style={styles.image}/>
-                        <View style={styles.rightContainer}>
-                        
-                        <Text style={styles.address}>{tennis.courtaddress_value}</Text>
-                        <Text style={styles.location}>{tennis.tinymuted_value}</Text>
-                      
-                      </View>
-                    </View>
-                    <View style={styles.separator} />
-                </View>
-            </TouchableHighlight>
-            </View>
-          </View>
+          onPress={this.goToDetails.bind(this)}>              
+              <Image
+                source={{uri: urlTest}}
+                style={styles.image}>
+
+                   <View style={styles.textContainer}>
+   
+                    <Text style={styles.address}>{tennis.name}</Text>
+                    <Text style={styles.address}>{tennis.vicinity}</Text>
+                  
+                  </View>
+
+               </Image>
+          </TouchableHighlight>
+        </View>
     )
   }
 };
@@ -98,43 +119,19 @@ var styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: '#252525',
   },
-  locationContainer: {
-    flex: 1,
-  },
-  locationText: {
-    height: 80,
-    width: 420,
-    marginTop: 200,
-    opacity: 0.8,
-  },
-  locationName: {
-    fontSize: 15,
-    textAlign: 'left',
-    color: 'white',
-    marginTop: 10,
-    paddingLeft: 5,
-  },
-  locationAddress: {
-    fontSize: 15,
-    textAlign: 'left',
-    color: 'white',
-    paddingLeft: 5.
-  },
-  locationDistance: {
-    fontSize: 15,
-    textAlign: 'right',
-    color: 'white',
-    paddingRight: 15,
+  textContainer: {
   },
   image: {
+    paddingTop: 220,
     width: 420,
     height: 275,
+    backgroundColor: 'rgba(0, 0, 0, 1)',
   },
   address: {
     color: 'white',
-  },
-  location: {
-    color: 'white',
+    textAlign: 'left',
+    padding: 5,
+    paddingLeft: 25,
   },
 
 });
