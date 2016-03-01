@@ -11,6 +11,7 @@ var {
   StyleSheet,
   Text,
   Navigator,
+  NavigatorIOS,
   TouchableHighlight,
   TouchableOpacity,
   View,
@@ -18,29 +19,29 @@ var {
 
 class SpotLightPage extends React.Component{
 
-     Filters(){
-    this.props.navigator.push({
-      title: 'Filters',
-      component: Filters,
-      rightButtonTitle: 'Filters',
-      passProps: {myElement: this.props.myElement},
-      onRightButtonPress: () => {
-      this.props.navigator.push({
-        title: "Filters",
-        component: Filters,
-        rightButtonTitle: 'Cancel',
-          passProps: {TabBar: TabBar},
+  //    Filters(){
+  //   this.props.navigator.push({
+  //     title: 'Filters',
+  //     component: Filters,
+  //     rightButtonTitle: 'Filters',
+  //     passProps: {myElement: this.props.myElement, navigator: this.props.navigator},
+  //     onRightButtonPress: () => {
+  //     this.props.navigator.push({
+  //       title: "Filters",
+  //       component: Filters,
+  //       rightButtonTitle: 'Cancel',
+  //         passProps: {TabBar: TabBar, navigator: this.props.navigator},
 
-        onRightButtonPress: () => {  this.props.navigator.pop(); }
-      })}
+  //       onRightButtonPress: () => {  this.props.navigator.pop(); }
+  //     })}
 
-    });
-  }
+  //   });
+  // }
   
  render(){
    return (
       <View style={styles.container}>
-         <SpotLight />
+         <SpotLight sport={this.props.sport} navigator={this.props.navigator}/>
       </View>
 
    );

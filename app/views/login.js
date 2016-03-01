@@ -33,6 +33,7 @@ class Login extends React.Component{
     this.props.navigator.push({
       component: Root,
       title: 'Sports Hub',
+      passProps: {navigator: this.props.navigator, sport: this.state.sport},
     })
   }
 
@@ -65,48 +66,53 @@ ref.createUser({
     return(
       <View style={styles.mainContainer}>
         <View style={styles.loginContainer}>
-
-                  <TouchableHighlight onPress={this.goToRoot.bind(this)} placeholder="Username" style={styles.loginButton}>
-            <Text style={styles.loginbuttonText}> Login </Text>
-          </TouchableHighlight>
-
           <Text style={styles.loginTitle}> Login to Facebook </Text>
-
         </View>
         <View style={styles.socialmediaContainer}>
           <TouchableHighlight onPress={this.goToRoot.bind(this)} style={styles.facebookButton}>
-                  <View style={this.props.style}>
-        <FBSDKLoginButton
-          style={styles.facebookButton}
-          onWillLogin={() => {
-            FBSDKAccessToken.getCurrentAccessToken((result) => {
-              if (result == null) {
-                alert('Start logging in.');
-              } else {
-                alert('Start logging out.');
-              }
-            }, '/me');
-            return true;
-          }}
-          onLoginFinished={(error, result) => {
-            if (error) {
-              alert('Error logging in.');
-            } else {
-              if (result.isCancelled) {
-                alert('Login cancelled.');
-              } else {
-                alert('Logged in.');
-              }
+            <View style={this.props.style}>
+              <FBSDKLoginButton
+                style={styles.facebookButton}
+                onWillLogin={() => {
+                  FBSDKAccessToken.getCurrentAccessToken((result) => {
+                    if (result == null) {
+                      alert('Start logging in.');
+                    } else {
+                      alert('Start logging out.');
+                    }
+                  }, '/me');
+                  return true;
+                }}
+                onLoginFinished={(error, result) => {
+                  if (error) {
+                    alert('Error logging in.');
+                  } else {
+                    if (result.isCancelled) {
+                      alert('Login cancelled.');
+                    } else {
+                      alert('Logged in.');
+                    }
 
-            }
-          }}
-          onLogoutFinished={() => alert('Logged out.')}
-          readPermissions={[]}
-          publishPermissions={[]}/>
-      </View>
-    </TouchableHighlight>
+                  }
+                }}
+                onLogoutFinished={() => alert('Logged out.')}
+                readPermissions={[]}
+                publishPermissions={[]}/>
+            </View>
+          </TouchableHighlight>
+
+          <TextInput
+              style={styles.textInput}
+              onChangeText={(sport) => this.setState({sport})}
+              onSubmitEditing={this.fetchData}
+              placeholder={'Search For Sport'}
+              placeholderTextColor={'white'}/>
+          </View>
+          
+          <TouchableHighlight onPress={this.goToRoot.bind(this)} placeholder="Username" style={styles.loginButton}>
+            <Text style={styles.loginbuttonText}> Search </Text>
+          </TouchableHighlight>
         </View>
-      </View>
     )
   }
 };
@@ -139,15 +145,6 @@ var styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: 'transparent',
   },
-  loginButton: {
-    width: 170,
-    height: 50,
-    shadowRadius: 5,
-    shadowColor: '#000000',
-    shadowOpacity: 1,
-    shadowOffset: {width: 0, height: 0},
-    marginTop: 200,
-  },
   imageBox: {
     marginTop: 10,
     alignItems: 'center',
@@ -174,9 +171,7 @@ var styles = StyleSheet.create({
   socialmediaContainer: {
     flex: 1,
     flexDirection: 'column',
-    justifyContent: 'center',
     alignItems: 'center',
-    marginTop: 160,
   },
   loginTitle: {
     flex: 1,
@@ -185,6 +180,7 @@ var styles = StyleSheet.create({
     fontSize: 24,
     color: 'white',
     marginTop: 30,
+    marginBottom: 50,
   },
   searchInput: {
     flex: 1,
@@ -209,9 +205,8 @@ var styles = StyleSheet.create({
     borderWidth: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    marginTop: 20,
-    marginBottom: 20,
-    marginLeft: 100,
+    marginBottom: 30,
+
   },
   loginbuttonText: {
     color: 'white',
@@ -221,6 +216,7 @@ var styles = StyleSheet.create({
     fontSize: 20,
     color: 'white',
     alignSelf: 'center',
+    marginBottom: 50,
   },
   facebookButton: {
     height: 75,
@@ -230,17 +226,19 @@ var styles = StyleSheet.create({
     borderWidth: 1,
     alignSelf: 'stretch',
     justifyContent: 'center',
-    width: 330,
+    width: 350,
   },
-  twitterButton: {
-    height: 80,
-    flexDirection: 'row',
-    backgroundColor: '#5fa9dd',
-    borderColor: 'white',
+  textInput: {
     borderWidth: 1,
-    alignSelf: 'stretch',
+    borderColor: 'white',
+    color: 'white',
+    width:350,
     justifyContent: 'center',
-    width: 450,
+    height: 60,
+    fontSize: 13,
+    padding: 5,
+    paddingLeft:15,
+    marginTop: 200,
   },
 });
 

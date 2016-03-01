@@ -41,14 +41,6 @@ class Favorites extends React.Component{
             <Text style={styles.detailsHeader}> Address </Text>
             <Text style={styles.headerDetails}> 1436 Pine St, Winter Park FL 32792 </Text>
 
-            <Text style={styles.detailsHeader}> Location Type </Text>
-            <Text style={styles.headerDetails}> Baseball Field</Text>
-
-            <Text style={styles.detailsHeader}> Location Surface </Text>
-            <Text style={styles.headerDetails}> Grass </Text>
-
-            <Text style={styles.detailsHeader}> Hour Of Operation </Text>
-            <Text style={styles.headerDetails}> Mon - Sunday 7 A.M - 8 P.M </Text>
           </View>
 
 

@@ -10,59 +10,99 @@ var {
   TextInput,
   TouchableHighlight,
   Image,
+  ListView,
 } = React;
 
-class Details extends React.Component{
-  goToSpotLight(){
-    this.props.navigator.push({
-      component: SpotLight,
-      title: 'Spot Light',
-    })
-  }
+var Request_URL = 'https://maps.googleapis.com/maps/api/place/details/json?placeid=ChIJdRyiowtw54gRg5WRcBBWs9s&key=AIzaSyA93qzAQmirXxVTyxotuBIzmX62tIBEAf0';
 
-  goToSignup(){
-    this.props.navigator.push({
-      component: SignUp,
-      title: 'Sign Up',
-    })
-  }
-  render(){
-    return(
+var Details  = React.createClass({
+
+getInitialState: function() {
+    return {
+      result: null,
+    };
+},
+
+componentDidMount: function() {
+    this.fetchData();
+},
+
+fetchData: function() {
+    fetch(Request_URL)
+      .then((response) => response.json())
+      .then((responseData) => {
+        this.setState({
+          result: responseData.result,
+        });
+      })
+      .done();
+},
+
+  function(responseData) {
+    this.setState({
+      result: responseData.result,
+    });
+},
+    
+render: function() {
+
+    if (!this.state.result) {
+      return this.renderLoadingView();
+    }
+    
+    var placedetails = this.state.result;
+    return this.renderPlaceDetails(placedetails);
+  },
+
+    renderLoadingView: function() {
+    return (
+      <View style={styles.maincontainer}>
+        <Text>
+          Loading movies...
+        </Text>
+      </View>
+    );
+  },
+
+  renderPlaceDetails: function(placedetails) {
+
+          if(placedetails.photos) {
+        var photoreference = placedetails.photos[0].photo_reference;
+
+        var urlDeff = 'https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=';
+
+        var apiKey = '&key=AIzaSyCNeZ03YXpy8AyPJrkVv7nKw7tswfWj-qM';
+
+        var urlTest = urlDeff + photoreference + apiKey;
+      }
+      else {
+        urlTest = "";
+      }
+    return (
       <View style={styles.mainContainer}>
-          <View style={styles.detailsContainer}>
-            <Image
+        <View style={styles.detailsContainer}>
+                    <Image
               style={styles.image}
-              source={{uri: 'http://www.thundertix.com/wp-content/uploads/2012/12/sports-ticketing-software-.jpg'}}>
+              source={{uri: urlTest}}>
           </Image>
-
-          <View style={styles.locationText}>
-            <Text style={styles.locationName}> Winter Park Community Park </Text>
-            
-            <Text style={styles.detailsHeader}> Address </Text>
-            <Text style={styles.headerDetails}> 1436 Pine St, Winter Park FL 32792 </Text>
-
-            <Text style={styles.detailsHeader}> Location Type </Text>
-            <Text style={styles.headerDetails}> Baseball Field</Text>
-
-            <Text style={styles.detailsHeader}> Location Surface </Text>
-            <Text style={styles.headerDetails}> Grass </Text>
-
-            <Text style={styles.detailsHeader}> Hour Of Operation </Text>
-            <Text style={styles.headerDetails}> Mon - Sunday 7 A.M - 8 P.M </Text>
-          </View>
-
+          <Text style={styles.locationName}>{placedetails.vicinity}</Text>
+          <Text style={styles.headerDetails}> Hours Of Operation</Text>
+          <Text style={styles.detailshours}>{placedetails.opening_hours.weekday_text[0]}</Text>
+          <Text style={styles.detailshours}>{placedetails.opening_hours.weekday_text[1]}</Text>
+          <Text style={styles.detailshours}>{placedetails.opening_hours.weekday_text[2]}</Text>
+          <Text style={styles.detailshours}>{placedetails.opening_hours.weekday_text[3]}</Text>
+          <Text style={styles.detailshours}>{placedetails.opening_hours.weekday_text[4]}</Text>
+          <Text style={styles.detailshours}>{placedetails.opening_hours.weekday_text[5]}</Text>
+          <Text style={styles.detailshours}>{placedetails.opening_hours.weekday_text[6]}</Text>
 
         </View>
       </View>
-    )
-  }
-};
-
+    );
+  },
+});
 var styles = StyleSheet.create({
   mainContainer: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
     backgroundColor: '#252525',
   },
   detailsContainer: {
@@ -76,11 +116,18 @@ var styles = StyleSheet.create({
     color: 'white',
     fontSize: 20,
     marginTop: 10,
+    alignItems: 'center',
+  },
+  detailshours: {
+    color: 'green',
+    fontSize: 12,
+    marginTop: 10,
+    marginRight: 5,
   },
   detailsHeader: {
     color: 'green',
     fontSize: 14,
-    marginTop: 20,
+    marginTop: 10,
   },
   headerDetails: {
     color: 'white',

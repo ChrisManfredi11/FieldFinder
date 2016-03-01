@@ -17,15 +17,16 @@ var {
   TabBarIOS,
   ListView,
   Navigator,
+  NavigatorIOS,
 } = React;
 
-var LocationURL = `https://maps.googleapis.com/maps/api/place/nearbysearch/json?key=AIzaSyCNeZ03YXpy8AyPJrkVv7nKw7tswfWj-qM&radius=5000&keyword=tenniscourt&location=28.5959,-81.3437`;
 
 class SpotLight extends React.Component{
+
   constructor(props) {
          super(props);
          this.state = {
-            usertype: '',
+            sport: '',
             photoImage: 'null',
              isLoading: true,
              dataSource: new ListView.DataSource({
@@ -41,7 +42,7 @@ class SpotLight extends React.Component{
    }
  
    fetchData() {
-       fetch(LocationURL)
+       fetch(`https://maps.googleapis.com/maps/api/place/nearbysearch/json?key=AIzaSyCNeZ03YXpy8AyPJrkVv7nKw7tswfWj-qM&radius=5000&keyword=${this.state.sport}&location=28.5959,-81.3437`)
        .then((response) => response.json())
        .then((responseData) => {
            this.setState({
@@ -85,12 +86,7 @@ class SpotLight extends React.Component{
         urlTest = "";
       }
       
-
-      // var PlacesPhoto = 'https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=CnRtAAAATLZNl354RwP_9UKbQ_5Psy40texXePv4oAlgP4qNEkdIrkyse7rPXYGd9D_Uj1rVsQdWT4oRz4QrYAJNpFX7rzqqMlZw2h2E2y5IKMUZ7ouD_SlcHxYq1yL4KbKUv3qtWgTK0A6QbGh87GB3sscrHRIQiG2RrmU_jF4tENr9wGS_YxoUSSDrYjWmrNfeEHSGSc3FyhNLlBU&key=AIzaSyCNeZ03YXpy8AyPJrkVv7nKw7tswfWj-qM';
-
-
-
-      return (
+return (
       <View style={styles.mainContainer}>
           <TouchableHighlight
           onPress={this.goToDetails.bind(this)}>              

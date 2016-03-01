@@ -2,7 +2,8 @@
 
 var React = require('react-native'),
     TabBar = require('../components/tabbar'),
-    SpotLight = require('../components/spotlight');
+    SpotLight = require('../components/spotlight'),
+    Filters = require('./filters');
 
 var {
   AppRegistry,
@@ -20,7 +21,7 @@ class Root extends Component{
  render(){
    return (
       <View style={styles.container}>
-         <TabBar />
+         <TabBar navigator={this.props.navigator} sport={this.props.sport}/>
       </View>
 
    );

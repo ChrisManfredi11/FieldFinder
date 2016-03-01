@@ -2,56 +2,77 @@
 
 var React = require('react-native'),
     TabBar = require('../components/tabbar'),
-    SpotLight = require('../components/spotlight');
+    SpotLight = require('../components/spotlight'),
+    Details = require('./details'),
+    Root = require('./root.js');
 
 var {
   AppRegistry,
-  Component,
   StyleSheet,
   Text,
-  Navigator,
-  TouchableHighlight,
-  TouchableOpacity,
   View,
   TextInput,
+  TouchableHighlight,
+  Image,
+  TabBarIOS,
+  ListView,
+  Navigator,
+  NavigatorIOS,
 } = React;
 
-class Filters extends Component{
+
+
+
+class Filters extends React.Component{
+  goToRoot(){
+    this.props.navigator.push({
+      component: Root,
+      title: 'Sports Hub',
+      passProps: {navigator: this.props.navigator},
+    })
+  }
+
+  goToDetails(){
+    this.props.navigator.push({
+      component: Details,
+      title: 'Sports Hub',
+    })
+  }
+
   constructor(props){
     super(props);
     this.state = {
-      usertype: '',
+      sport: '',
       isLoading: false,
       error: false
     }
   }
 
-    handleChange(event){
-    this.setState({
-      usertype: event.nativeEvent.text
-    })
-  }
-  handleSubmit(){
-    // update our indicatorIOS spinner
-    this.setState({
-      isLoading: true
-    })
-
-  }
-  
  render(){
    return (
       <View style={styles.container}>
+      <View style={styles.loginContainer}>
+
       <TextInput
         style={styles.searchInput}
-        value={this.state.username}
-        onChange={this.handleChange.bind(this)} />
+        onChangeText={(sport) => this.setState({sport})}
+        value={this.state.sport}
+        />
+        
+      <TouchableHighlight
+          style={styles.button}
+          onPress={this.goToDetails.bind(this)}>
+          <Text style={styles.buttonText}> Search Results </Text>
+        </TouchableHighlight>
+
         <TouchableHighlight
           style={styles.button}
-          onPress={this.handleSubmit.bind(this)}>
-          <Text style={styles.buttonText}> SEARCH </Text>
+          onPress={this.goToRoot.bind(this)}>
+          <Text style={styles.buttonText}> Go To Root </Text>
         </TouchableHighlight>
+
       </View>
+    </View>
 
    )
  }
@@ -59,19 +80,54 @@ class Filters extends Component{
 
 var styles = StyleSheet.create({
  container: {
-    flex: 3,
+    flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#252525',
   },
+   loginContainer: {
+    flex: 0.15,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
   searchInput: {
-    flex: 1,
-    backgroundColor: 'white',
     height: 50,
-    width: 100,
+    backgroundColor: 'white',
+    width: 300,
+    marginTop: 20,
   },
   welcome: {
     fontSize: 20,
+    textAlign: 'center',
+  },
+  button: {
+    backgroundColor: '#46833d',
+    borderColor: 'white',
+    borderRadius: 5,
+    height: 40,
+    width: 100,
+    borderWidth: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: 20,
+    marginBottom: 20,
+    marginLeft: 100,
+  },
+    buttonText: {
+    color: 'white',
+    textAlign: 'center',
+  },
+  loginButton: {
+    width: 170,
+    height: 50,
+    shadowRadius: 5,
+    shadowColor: '#000000',
+    shadowOpacity: 1,
+    shadowOffset: {width: 0, height: 0},
+    marginTop: 200,
+  },
+  loginbuttonText: {
+    color: 'white',
     textAlign: 'center',
   },
 });
