@@ -14,19 +14,26 @@ var {
   Image,
 } = React;
 
-var Root = React.createClass({
+class Root extends React.Component{
+   constructor(props){
+    super(props);
+    this.state = {
+      sport: this.props.sport,
+    }
+  }
+
   
- render: function(){
+ render(){
    return (
     <View style={styles.mainContainer}>
       <View style={styles.container}>
-         <TabBar />
+         <TabBar sport={this.state.sport} />
       </View>
     </View>
 
    );
  }
-})
+}
 
 var styles = StyleSheet.create({
  mainContainer: {

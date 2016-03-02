@@ -17,7 +17,7 @@ var {
 
 var tennis = 'this.props.tennis';
 
-var Request_URL = 'https://maps.googleapis.com/maps/api/place/details/json?placeid='+placeid+'&key=AIzaSyA93qzAQmirXxVTyxotuBIzmX62tIBEAf0';
+// var Request_URL = 'https://maps.googleapis.com/maps/api/place/details/json?placeid='+this.props.placeid+'&key=AIzaSyA93qzAQmirXxVTyxotuBIzmX62tIBEAf0';
 
 var placeid = tennis.place_id;
 
@@ -43,7 +43,7 @@ componentDidMount: function() {
 },
 
 fetchData: function() {
-    fetch(Request_URL)
+    fetch(detailsURL)
       .then((response) => response.json())
       .then((responseData) => {
         this.setState({

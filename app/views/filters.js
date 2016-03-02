@@ -20,31 +20,41 @@ var {
 } = React;
 
 
-
-
-var Filters = React.createClass({
-  Root: function(){
+class Filters extends React.Component{
+  constructor(props){
+    super(props);
+    this.state = {
+      sport: this.props.sport,
+    }
+  }
+  handleChange(event){
+    this.setState({
+      sport: event.nativeEvent.text
+    })
+}
+  
+  Root(){
     this.props.navigator.push({
             title: 'Root',
             component: Root,
+            passProps: {sport: this.state.sport}
     });
-  },
+  }
 
 
- render: function() {
+ render(){
    return (
       <View style={styles.container}>
         <View style={styles.loginContainer}>
 
       <TextInput
         style={styles.searchInput}
-        onChangeText={(sport) => this.setState({sport})}
+        onChangeText={(sport)=>this.setState({sport})}
         placeholder={'请输入商品名称商品'}
         placeholderTextColor={'white'}
-        />
-          </View>
-
-        <TouchableHighlight
+        value={this.state.sport} />
+        </View>
+      <TouchableHighlight
           style={styles.loginButton}
           onPress={() => this.Root()}          
           placeholder={'请输入商品名称商品'}
@@ -56,7 +66,7 @@ var Filters = React.createClass({
 
    );
  }
-})
+};
 
 var styles = StyleSheet.create({
  container: {

@@ -20,6 +20,7 @@ class TabBar extends React.Component{
  
  constructor(props) {
     super(props);
+    console.log(this.props.sport);
     this.state = {
       selectedTab: 'SpotLight',
       sport: this.props.sport
@@ -38,7 +39,7 @@ class TabBar extends React.Component{
             });
           }}>
           
-          <SpotLight navigator={this.props.navigator} />
+          <SpotLight sport={this.state.sport} navigator={this.props.navigator} />
           
           </TabBarIOS.Item>
           

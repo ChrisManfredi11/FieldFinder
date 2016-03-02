@@ -20,23 +20,26 @@ var {
   NavigatorIOS,
 } = React;
 
-var tennis = 'this.props.tennis';
-
-
 class SpotLight extends React.Component{
 
-  constructor(props) {
+    goToDetails(){
+    this.props.navigator.push({
+      title: 'Details',
+      component: Details,
+    })
+  }
+
+    constructor(props) {
          super(props);
          this.state = {
-            sport: '',
-            tennis: this.props.tennis,
+            sport: this.props.sport,
             photoImage: 'null',
              isLoading: true,
              dataSource: new ListView.DataSource({
                  rowHasChanged: (row1, row2) => row1 !== row2
              })
          };
-     }
+     } 
 
      
 
@@ -44,14 +47,15 @@ class SpotLight extends React.Component{
        this.fetchData();
    }
  
-   fetchData() {
-       fetch(`https://maps.googleapis.com/maps/api/place/nearbysearch/json?key=AIzaSyCNeZ03YXpy8AyPJrkVv7nKw7tswfWj-qM&radius=5000&keyword=tennis&location=28.5959,-81.3437`)
+   fetchData(sport) {
+       fetch('https://maps.googleapis.com/maps/api/place/nearbysearch/json?key=AIzaSyCNeZ03YXpy8AyPJrkVv7nKw7tswfWj-qM&radius=5000&keyword='+this.props.sport+'&location=28.5959,-81.3437')
        .then((response) => response.json())
        .then((responseData) => {
            this.setState({
                dataSource: this.state.dataSource.cloneWithRows(responseData.results),
                isLoading: false,
                tennis: responseData,
+               sport: this.props.sport,
            });
 
        })
@@ -106,13 +110,6 @@ return (
           </TouchableHighlight>
         </View>
     )
-  }
-    goToDetails(){
-    this.props.navigator.push({
-      component: Details,
-      title: 'Details Page',
-      passProps: {tennis: tennis}
-    });
   }
 };
 
