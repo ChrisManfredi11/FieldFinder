@@ -21,7 +21,7 @@ var {
   FBSDKGraphRequest,
 } = FBSDKCore;
 
-var Login = React.createClass ({
+var MyAccount = React.createClass ({
   goToSpotLight(){
     this.props.navigator.push({
       component: SpotLight,
@@ -126,4 +126,4 @@ var styles = StyleSheet.create({
 
 });
 
-module.exports = Login;
+module.exports = MyAccount;

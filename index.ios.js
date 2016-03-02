@@ -4,7 +4,8 @@ var React = require('react-native'),
     Login = require('./app/views/login'),
     SpotLight = require('./app/views/spotlight'),
     Favorites = require('./app/views/favorites'),
-    Account = require('./app/views/myaccount');
+    Account = require('./app/views/myaccount'),
+    Filters = require('./app/views/filters');
 
 var {
   AppRegistry,

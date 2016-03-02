@@ -2,7 +2,6 @@
 
 var React = require('react-native'),
     Firebase = require('firebase'),
-    Root = require('./root'),
     Filters = require('./filters'),
     MyAccount = require('./myaccount');
 
@@ -14,6 +13,9 @@ var {
   TextInput,
   TouchableHighlight,
   Image,
+  RadioButtons,
+  Navigator,
+  NavigatorIOS,
 } = React;
 
 var FBSDKLogin = require('react-native-fbsdklogin');
@@ -25,22 +27,28 @@ var {
   FBSDKAccessToken,
 } = FBSDKCore;
 
-var ref = ("https://sportshub.firebaseio.com");
 
 
 class Login extends React.Component{
-  goToRoot(){
-    this.props.navigator.push({
-      component: Root,
-      title: 'Sports Hub',
-      passProps: {navigator: this.props.navigator, sport: this.state.sport},
-    })
-  }
+
+     fetchData() {
+       fetch(`https://maps.googleapis.com/maps/api/place/nearbysearch/json?key=AIzaSyCNeZ03YXpy8AyPJrkVv7nKw7tswfWj-qM&radius=5000&keyword=${this.state.sport}&location=28.5959,-81.3437`)
+       .then((response) => response.json())
+       .then((responseData) => {
+           this.setState({
+               dataSource: this.state.dataSource.cloneWithRows(responseData.results),
+               isLoading: false
+           });
+
+       })
+       .done();
+   }
 
   goToFilters(){
     this.props.navigator.push({
       component: Filters,
       title: 'Filters',
+      passProps: {navigator: this.props.navigator}
     })
   }
   
@@ -50,26 +58,14 @@ class Login extends React.Component{
       title: 'My Account',
     })
   }
-createUser(){
-ref.createUser({
-  email    : "bobtony@firebase.com",
-  password : "correcthorsebatterystaple"
-}, function(error, userData) {
-  if (error) {
-    console.log("Error creating user:", error);
-  } else {
-    console.log("Successfully created user account with uid:", userData.uid);
-  }
-});
-}
   render(){
     return(
       <View style={styles.mainContainer}>
         <View style={styles.loginContainer}>
-          <Text style={styles.loginTitle}> Login to Facebook </Text>
+          <Image style={styles.logo} source={require('../Images/logo.png')} />
+          <Text style={styles.logoText}> Field Finder </Text>
         </View>
         <View style={styles.socialmediaContainer}>
-          <TouchableHighlight onPress={this.goToRoot.bind(this)} style={styles.facebookButton}>
             <View style={this.props.style}>
               <FBSDKLoginButton
                 style={styles.facebookButton}
@@ -91,27 +87,25 @@ ref.createUser({
                       alert('Login cancelled.');
                     } else {
                       alert('Logged in.');
+
                     }
 
                   }
                 }}
+
                 onLogoutFinished={() => alert('Logged out.')}
                 readPermissions={[]}
                 publishPermissions={[]}/>
             </View>
-          </TouchableHighlight>
+                              <TouchableHighlight onPress={this.goToFilters.bind(this)} placeholder="Username" style={styles.loginButton}>
+                    <Text style={styles.loginbuttonText}> Filters </Text>
+                  </TouchableHighlight>
 
-          <TextInput
-              style={styles.textInput}
-              onChangeText={(sport) => this.setState({sport})}
-              onSubmitEditing={this.fetchData}
-              placeholder={'Search For Sport'}
-              placeholderTextColor={'white'}/>
           </View>
           
-          <TouchableHighlight onPress={this.goToRoot.bind(this)} placeholder="Username" style={styles.loginButton}>
-            <Text style={styles.loginbuttonText}> Search </Text>
-          </TouchableHighlight>
+
+
+
         </View>
     )
   }
@@ -200,13 +194,22 @@ var styles = StyleSheet.create({
     backgroundColor: '#46833d',
     borderColor: 'white',
     borderRadius: 5,
-    height: 40,
-    width: 100,
+    height: 115,
+    width: 400,
     borderWidth: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    marginBottom: 30,
-
+  },
+  facebookButton: {
+    height: 115,
+    flexDirection: 'row',
+    backgroundColor: '#3b5998',
+    borderColor: 'white',
+    borderWidth: 1,
+    alignSelf: 'stretch',
+    justifyContent: 'center',
+    width: 390,
+    marginTop: 60,
   },
   loginbuttonText: {
     color: 'white',
@@ -218,16 +221,7 @@ var styles = StyleSheet.create({
     alignSelf: 'center',
     marginBottom: 50,
   },
-  facebookButton: {
-    height: 75,
-    flexDirection: 'row',
-    backgroundColor: '#3b5998',
-    borderColor: 'white',
-    borderWidth: 1,
-    alignSelf: 'stretch',
-    justifyContent: 'center',
-    width: 350,
-  },
+
   textInput: {
     borderWidth: 1,
     borderColor: 'white',
@@ -238,8 +232,26 @@ var styles = StyleSheet.create({
     fontSize: 13,
     padding: 5,
     paddingLeft:15,
-    marginTop: 200,
+    marginTop: 150,
   },
+  loginTitle: {
+    color: 'white',
+    fontSize: 25,
+    marginTop: 10,
+    marginBottom: 50,
+  },
+  logo: {
+    width: 200,
+    height: 230,
+    marginLeft: 20,
+  },
+  logoText: {
+    color: 'white',
+    alignItems: 'center',
+    fontSize: 25,
+    marginLeft: 50,
+    marginTop: 20,
+  }
 });
 
 module.exports = Login;

@@ -10,6 +10,8 @@ var {
   TextInput,
   TouchableHighlight,
   Image,
+  Navigator,
+  NavigatorIOS,
 } = React;
 
 class Favorites extends React.Component{

@@ -11,20 +11,35 @@ var {
   TouchableHighlight,
   Image,
   ListView,
+  Navigator,
+  NavigatorIOS,
 } = React;
 
-var Request_URL = 'https://maps.googleapis.com/maps/api/place/details/json?placeid=ChIJdRyiowtw54gRg5WRcBBWs9s&key=AIzaSyA93qzAQmirXxVTyxotuBIzmX62tIBEAf0';
+var tennis = 'this.props.tennis';
+
+var Request_URL = 'https://maps.googleapis.com/maps/api/place/details/json?placeid='+placeid+'&key=AIzaSyA93qzAQmirXxVTyxotuBIzmX62tIBEAf0';
+
+var placeid = tennis.place_id;
+
+var placeidURL = 'https://maps.googleapis.com/maps/api/place/details/json?placeid=';
+
+var apiKey = '&key=AIzaSyA93qzAQmirXxVTyxotuBIzmX62tIBEAf0';
+
+var detailsURL = placeidURL + placeid + apiKey;
 
 var Details  = React.createClass({
+
 
 getInitialState: function() {
     return {
       result: null,
+      tennis: this.props.tennis,
     };
 },
 
 componentDidMount: function() {
     this.fetchData();
+    this.props.tennis;
 },
 
 fetchData: function() {
@@ -41,6 +56,7 @@ fetchData: function() {
   function(responseData) {
     this.setState({
       result: responseData.result,
+      tennis: this.props.tennis,
     });
 },
     
@@ -66,6 +82,7 @@ render: function() {
 
   renderPlaceDetails: function(placedetails) {
 
+
           if(placedetails.photos) {
         var photoreference = placedetails.photos[0].photo_reference;
 
@@ -78,6 +95,8 @@ render: function() {
       else {
         urlTest = "";
       }
+
+
     return (
       <View style={styles.mainContainer}>
         <View style={styles.detailsContainer}>

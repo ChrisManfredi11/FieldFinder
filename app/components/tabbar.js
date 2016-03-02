@@ -38,7 +38,7 @@ class TabBar extends React.Component{
             });
           }}>
           
-          <SpotLight sport={this.state.sport} navigator={this.props.navigator} />
+          <SpotLight navigator={this.props.navigator} />
           
           </TabBarIOS.Item>
           

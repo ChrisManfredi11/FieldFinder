@@ -20,6 +20,8 @@ var {
   NavigatorIOS,
 } = React;
 
+var tennis = 'this.props.tennis';
+
 
 class SpotLight extends React.Component{
 
@@ -27,6 +29,7 @@ class SpotLight extends React.Component{
          super(props);
          this.state = {
             sport: '',
+            tennis: this.props.tennis,
             photoImage: 'null',
              isLoading: true,
              dataSource: new ListView.DataSource({
@@ -42,24 +45,20 @@ class SpotLight extends React.Component{
    }
  
    fetchData() {
-       fetch(`https://maps.googleapis.com/maps/api/place/nearbysearch/json?key=AIzaSyCNeZ03YXpy8AyPJrkVv7nKw7tswfWj-qM&radius=5000&keyword=${this.state.sport}&location=28.5959,-81.3437`)
+       fetch(`https://maps.googleapis.com/maps/api/place/nearbysearch/json?key=AIzaSyCNeZ03YXpy8AyPJrkVv7nKw7tswfWj-qM&radius=5000&keyword=tennis&location=28.5959,-81.3437`)
        .then((response) => response.json())
        .then((responseData) => {
            this.setState({
                dataSource: this.state.dataSource.cloneWithRows(responseData.results),
-               isLoading: false
+               isLoading: false,
+               tennis: responseData,
            });
 
        })
        .done();
    }
 
-     goToDetails(){
-    this.props.navigator.push({
-      component: Details,
-      title: 'Details Page',
-    });
-  }
+
   render(){
   
     return(
@@ -78,13 +77,15 @@ class SpotLight extends React.Component{
 
         var urlDeff = 'https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=';
 
-        var apiKey = '&key=AIzaSyCNeZ03YXpy8AyPJrkVv7nKw7tswfWj-qM';
+        var apiKey = '&key=AIzaSyA93qzAQmirXxVTyxotuBIzmX62tIBEAf0';
 
         var urlTest = urlDeff + photoreference + apiKey;
       }
       else {
         urlTest = "";
       }
+
+
       
 return (
       <View style={styles.mainContainer}>
@@ -105,6 +106,13 @@ return (
           </TouchableHighlight>
         </View>
     )
+  }
+    goToDetails(){
+    this.props.navigator.push({
+      component: Details,
+      title: 'Details Page',
+      passProps: {tennis: tennis}
+    });
   }
 };
 

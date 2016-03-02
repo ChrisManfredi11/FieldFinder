@@ -6,29 +6,33 @@ var React = require('react-native'),
     Filters = require('./filters');
 
 var {
-  AppRegistry,
-  Component,
   StyleSheet,
   Text,
-  Navigator,
-  TouchableHighlight,
-  TouchableOpacity,
   View,
+  TextInput,
+  TouchableHighlight,
+  Image,
 } = React;
 
-class Root extends Component{
+var Root = React.createClass({
   
- render(){
+ render: function(){
    return (
+    <View style={styles.mainContainer}>
       <View style={styles.container}>
-         <TabBar navigator={this.props.navigator} sport={this.props.sport}/>
+         <TabBar />
       </View>
+    </View>
 
    );
  }
-};
+})
 
-const styles = StyleSheet.create({
+var styles = StyleSheet.create({
+ mainContainer: {
+  flex: 1,
+  justifyContent: 'center',
+ },
  container: {
     flex: 1,
   },

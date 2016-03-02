@@ -4,18 +4,17 @@ var React = require('react-native'),
     TabBar = require('../components/tabbar'),
     SpotLight = require('../components/spotlight'),
     Details = require('./details'),
-    Root = require('./root.js');
+    Root = require('./root'),
+    Login = require('./login'),
+    MyAccount = require('./myaccount');
 
 var {
-  AppRegistry,
   StyleSheet,
   Text,
   View,
   TextInput,
   TouchableHighlight,
   Image,
-  TabBarIOS,
-  ListView,
   Navigator,
   NavigatorIOS,
 } = React;
@@ -23,60 +22,41 @@ var {
 
 
 
-class Filters extends React.Component{
-  goToRoot(){
+var Filters = React.createClass({
+  Root: function(){
     this.props.navigator.push({
-      component: Root,
-      title: 'Sports Hub',
-      passProps: {navigator: this.props.navigator},
-    })
-  }
+            title: 'Root',
+            component: Root,
+    });
+  },
 
-  goToDetails(){
-    this.props.navigator.push({
-      component: Details,
-      title: 'Sports Hub',
-    })
-  }
 
-  constructor(props){
-    super(props);
-    this.state = {
-      sport: '',
-      isLoading: false,
-      error: false
-    }
-  }
-
- render(){
+ render: function() {
    return (
       <View style={styles.container}>
-      <View style={styles.loginContainer}>
+        <View style={styles.loginContainer}>
 
       <TextInput
         style={styles.searchInput}
         onChangeText={(sport) => this.setState({sport})}
-        value={this.state.sport}
+        placeholder={'请输入商品名称商品'}
+        placeholderTextColor={'white'}
         />
-        
-      <TouchableHighlight
-          style={styles.button}
-          onPress={this.goToDetails.bind(this)}>
-          <Text style={styles.buttonText}> Search Results </Text>
-        </TouchableHighlight>
+          </View>
 
         <TouchableHighlight
-          style={styles.button}
-          onPress={this.goToRoot.bind(this)}>
-          <Text style={styles.buttonText}> Go To Root </Text>
+          style={styles.loginButton}
+          onPress={() => this.Root()}          
+          placeholder={'请输入商品名称商品'}
+          placeholderTextColor={'white'}>
+          <Text style={styles.buttonText}> Filter Results </Text>
         </TouchableHighlight>
 
       </View>
-    </View>
 
-   )
+   );
  }
-};
+})
 
 var styles = StyleSheet.create({
  container: {
@@ -91,10 +71,12 @@ var styles = StyleSheet.create({
     alignItems: 'center',
   },
   searchInput: {
-    height: 50,
-    backgroundColor: 'white',
-    width: 300,
+    height: 70,
+    width: 320,
     marginTop: 20,
+    borderColor: 'white',
+    borderWidth: 2,
+    color: 'white',
   },
   welcome: {
     fontSize: 20,
@@ -118,13 +100,14 @@ var styles = StyleSheet.create({
     textAlign: 'center',
   },
   loginButton: {
-    width: 170,
-    height: 50,
-    shadowRadius: 5,
-    shadowColor: '#000000',
-    shadowOpacity: 1,
-    shadowOffset: {width: 0, height: 0},
-    marginTop: 200,
+    backgroundColor: '#46833d',
+    borderColor: 'white',
+    borderRadius: 5,
+    height: 115,
+    width: 400,
+    borderWidth: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   loginbuttonText: {
     color: 'white',
