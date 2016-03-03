@@ -32,7 +32,7 @@ class TabBar extends React.Component{
       <TabBarIOS selectedTab={this.state.selectedTab}>
           <TabBarIOS.Item
             title="Spot Light"
-            icon={require('../Images/spotlight.png')}
+            icon={require('../Images/home.png')}
             selected={this.state.selectedTab === 'SpotLight'}
             onPress={() => {this.setState({
               selectedTab: 'SpotLight',

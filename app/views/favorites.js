@@ -32,19 +32,8 @@ class Favorites extends React.Component{
     return(
       <View style={styles.mainContainer}>
           <View style={styles.detailsContainer}>
-            <Image
-              style={styles.image}
-              source={{uri: 'http://www.thundertix.com/wp-content/uploads/2012/12/sports-ticketing-software-.jpg'}}>
-          </Image>
 
-          <View style={styles.locationText}>
-            <Text style={styles.locationName}> Winter Park Community Park </Text>
-            
-            <Text style={styles.detailsHeader}> Address </Text>
-            <Text style={styles.headerDetails}> 1436 Pine St, Winter Park FL 32792 </Text>
-
-          </View>
-
+            <Text style={styles.favoritesTab}> Favorites Tab </Text>
 
         </View>
       </View>
@@ -79,6 +68,13 @@ var styles = StyleSheet.create({
   headerDetails: {
     color: 'white',
     fontSize: 16,
+  },
+  favoritesTab: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    color: 'white',
+    marginTop: 300,
   },
 
 });

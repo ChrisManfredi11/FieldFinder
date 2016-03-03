@@ -1,5 +1,8 @@
 'use strict';
 
+import Radio, {RadioButton} from 'react-native-simple-radio-button'
+
+
 var React = require('react-native'),
     TabBar = require('../components/tabbar'),
     SpotLight = require('../components/spotlight'),
@@ -7,7 +10,6 @@ var React = require('react-native'),
     Root = require('./root'),
     Login = require('./login'),
     MyAccount = require('./myaccount');
-
 var {
   StyleSheet,
   Text,
@@ -15,39 +17,55 @@ var {
   TextInput,
   TouchableHighlight,
   Image,
-  Navigator,
   NavigatorIOS,
+  Component,
 } = React;
 
+var Filters = React.createClass({
 
-class Filters extends React.Component{
-  constructor(props){
-    super(props);
-    this.state = {
-      sport: this.props.sport,
-    }
-  }
-  handleChange(event){
-    this.setState({
-      sport: event.nativeEvent.text
-    })
-}
   
   Root(){
     this.props.navigator.push({
-            title: 'Root',
+            title: 'Spot Light',
             component: Root,
-            passProps: {sport: this.state.sport}
+            passProps: {sport: this.state.sport, navigator: this.props.navigator}
     });
-  }
+  },
 
+  getInitialState: function() {
+    return {
+      types1: [{label: 'Tennis', value: 0},{label: 'Basketball', value: 1},{label: 'Football', value: 2},{label: 'Baseball', value: 3} ],
+      value1: 0,
+      value1Index: 0,
+    }
+  },
+ render: function(){
 
- render(){
    return (
+
       <View style={styles.container}>
         <View style={styles.loginContainer}>
 
-      <TextInput
+          <Radio
+            style={styles.radioButtons}
+            radio_props={this.state.types1}
+            initial={0}
+            formHorizontal={false}
+            labelHorizontal={true}
+            buttonColor={'#46833d'}
+            labelColor={'white'}
+            animation={true}
+            onPress={(value, index) => {
+              this.setState({value1:value})
+              this.setState({value1Index:index})
+            }}
+          />
+        <Text style={styles.selectedTab}>selected: {this.state.types1[this.state.value1Index].label}</Text>
+          
+
+
+
+          <TextInput
         style={styles.searchInput}
         onChangeText={(sport)=>this.setState({sport})}
         placeholder={'请输入商品名称商品'}
@@ -56,9 +74,7 @@ class Filters extends React.Component{
         </View>
       <TouchableHighlight
           style={styles.loginButton}
-          onPress={() => this.Root()}          
-          placeholder={'请输入商品名称商品'}
-          placeholderTextColor={'white'}>
+          onPress={() => this.Root()}>
           <Text style={styles.buttonText}> Filter Results </Text>
         </TouchableHighlight>
 
@@ -66,7 +82,7 @@ class Filters extends React.Component{
 
    );
  }
-};
+});
 
 var styles = StyleSheet.create({
  container: {
@@ -87,6 +103,7 @@ var styles = StyleSheet.create({
     borderColor: 'white',
     borderWidth: 2,
     color: 'white',
+    paddingLeft: 10,
   },
   welcome: {
     fontSize: 20,
@@ -122,6 +139,24 @@ var styles = StyleSheet.create({
   loginbuttonText: {
     color: 'white',
     textAlign: 'center',
+  },
+  radioOption: {
+    backgroundColor: 'green',
+  },
+  radioButtons: {
+    paddingTop: 5,
+  },
+  title: {
+    color: 'white',
+    fontSize: 20,
+    marginBottom: 30,
+  },
+  label: {
+    color: 'white',
+  },
+  selectedTab: {
+    color: 'white',
+    fontSize: 20,
   },
 });
 

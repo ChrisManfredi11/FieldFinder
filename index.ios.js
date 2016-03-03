@@ -7,6 +7,7 @@ var React = require('react-native'),
     Account = require('./app/views/myaccount'),
     Filters = require('./app/views/filters');
 
+
 var {
   AppRegistry,
   StyleSheet,
@@ -15,7 +16,14 @@ var {
   NavigatorIOS,
   TabBarIOS,
   Component,
+  Navigator,
 } = React;
+
+import Radio, {RadioButton} from 'react-native-simple-radio-button'
+
+
+
+
 
 class FieldFinder extends React.Component {
   render() {
@@ -24,7 +32,7 @@ class FieldFinder extends React.Component {
         style={styles.bodyContainer}
         initialRoute={{
           title: 'Login',
-          component: Login
+          component: Login,
       }}/>
     )
   }

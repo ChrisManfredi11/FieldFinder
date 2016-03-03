@@ -7,7 +7,6 @@ var React = require('react-native'),
     TabBar = require('../components/tabbar');
     
 var {
-  AppRegistry,
   StyleSheet,
   Text,
   View,
@@ -22,17 +21,10 @@ var {
 
 class SpotLight extends React.Component{
 
-    goToDetails(){
-    this.props.navigator.push({
-      title: 'Details',
-      component: Details,
-    })
-  }
-
     constructor(props) {
          super(props);
          this.state = {
-            sport: this.props.sport,
+            placeidURL: null,
             photoImage: 'null',
              isLoading: true,
              dataSource: new ListView.DataSource({
@@ -41,27 +33,35 @@ class SpotLight extends React.Component{
          };
      } 
 
+
      
 
   componentDidMount() {
        this.fetchData();
    }
  
-   fetchData(sport) {
+   fetchData() {
        fetch('https://maps.googleapis.com/maps/api/place/nearbysearch/json?key=AIzaSyCNeZ03YXpy8AyPJrkVv7nKw7tswfWj-qM&radius=5000&keyword='+this.props.sport+'&location=28.5959,-81.3437')
        .then((response) => response.json())
        .then((responseData) => {
            this.setState({
                dataSource: this.state.dataSource.cloneWithRows(responseData.results),
                isLoading: false,
-               tennis: responseData,
-               sport: this.props.sport,
            });
 
        })
        .done();
    }
 
+            Details(tennis){
+          console.log(tennis);
+    this.props.navigator.push({
+          component: Details,
+          title: 'Location Details',
+          passProps: {tennis: tennis, placeidURL: tennis.place_id, navigator: this.props.navigator}
+
+    })
+    }
 
   render(){
   
@@ -77,8 +77,9 @@ class SpotLight extends React.Component{
     renderCourts(tennis) {
       if(tennis.photos) {
         var photoreference = tennis.photos[0].photo_reference;
-        console.log(photoreference);
-
+        // console.log(photoreference);
+        
+        
         var urlDeff = 'https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=';
 
         var apiKey = '&key=AIzaSyA93qzAQmirXxVTyxotuBIzmX62tIBEAf0';
@@ -86,15 +87,30 @@ class SpotLight extends React.Component{
         var urlTest = urlDeff + photoreference + apiKey;
       }
       else {
-        urlTest = "";
+        urlTest = 'http://www.moillusions.com/wp-content/uploads/photos1.blogger.com/blogger/5639/2020/400/slide0009_image021.jpg';
       }
+
+      if(tennis.place_id) {
+        var placeURL = 'https://maps.googleapis.com/maps/api/place/details/json?placeid=';
+
+       var theplaceid = tennis.place_id;
+
+        var placeAPIKey = '&key=AIzaSyA93qzAQmirXxVTyxotuBIzmX62tIBEAf0';
+        
+        var placeidURL = placeURL + theplaceid + placeAPIKey;
+        console.log(placeidURL);
+      }
+      else {
+        placeidURL = "";
+      }
+
 
 
       
 return (
       <View style={styles.mainContainer}>
           <TouchableHighlight
-          onPress={this.goToDetails.bind(this)}>              
+            onPress={()=>this.Details(tennis)}>              
               <Image
                 source={{uri: urlTest}}
                 style={styles.image}>
@@ -110,7 +126,8 @@ return (
           </TouchableHighlight>
         </View>
     )
-  }
+ }
+
 };
 
 var styles = StyleSheet.create({
@@ -121,12 +138,12 @@ var styles = StyleSheet.create({
     backgroundColor: '#252525',
   },
   textContainer: {
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
   },
   image: {
-    paddingTop: 220,
+    paddingTop: 223,
     width: 420,
     height: 275,
-    backgroundColor: 'rgba(0, 0, 0, 1)',
   },
   address: {
     color: 'white',

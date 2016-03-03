@@ -1,5 +1,7 @@
 'use strict';
 
+
+
 var React = require('react-native'),
     TabBar = require('../components/tabbar'),
     SpotLight = require('../components/spotlight'),
@@ -27,7 +29,7 @@ class Root extends React.Component{
    return (
     <View style={styles.mainContainer}>
       <View style={styles.container}>
-         <TabBar sport={this.state.sport} />
+         <TabBar navigator={this.props.navigator} sport={this.state.sport} />
       </View>
     </View>
 
@@ -39,6 +41,7 @@ var styles = StyleSheet.create({
  mainContainer: {
   flex: 1,
   justifyContent: 'center',
+  backgroundColor: '#252525',
  },
  container: {
     flex: 1,
