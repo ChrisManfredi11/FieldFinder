@@ -126,7 +126,8 @@ var styles = StyleSheet.create({
   inputcontainer: {
     marginTop: 5,
     padding: 10,
-    flexDirection: 'row'
+    flexDirection: 'row',
+    backgroundColor: 'white',
   },
   button: {
     height: 36,
