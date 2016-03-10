@@ -128,7 +128,6 @@ searchInput: {
     textAlign: 'center',
   },
   radioOption: {
-    backgroundColor: 'green',
 
   },
   radioButtons: {

@@ -114,19 +114,12 @@ var styles = StyleSheet.create({
       height: 200,
       width: 200,
     },
-    disclaimerContainer: {
-    flex: 0.075,
-    alignItems: 'center',
-    justifyContent: 'flex-end',
-  },
-  disclaimerText: {
-    fontSize: 12,
-    color: 'white',
-  },
   loginContainer: {
     flex: 0.15,
     alignItems: 'center',
     justifyContent: 'center',
+        backgroundColor: '#252525',
+
   },
   feedContainer: {
     flex: 0.775,
