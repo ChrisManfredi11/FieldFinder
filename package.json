@@ -11,6 +11,7 @@
     "react-native-carousel": "^0.4.5",
     "react-native-fbsdkcore": "0.0.8",
     "react-native-fbsdklogin": "0.0.8",
+    "react-native-lock-ios": "0.0.5",
     "react-native-radio-button-classic": "0.0.5",
     "react-native-radio-buttons": "^0.8.2"
   }

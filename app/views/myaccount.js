@@ -74,14 +74,14 @@ var MyAccount = React.createClass ({
           <View style={styles.detailsContainer}>
           <Image style={styles.image} source={{uri: pic}}/>
 
-            <Text style={styles.detailsHeader}> Name </Text>
-            <Text style={styles.headerDetails}> {name}</Text>
+            <Text style={styles.contactHeader}> Name </Text>
+            <Text style={styles.contactDetails}> {name}</Text>
 
-            <Text style={styles.detailsHeader}> Age </Text>
-            <Text style={styles.headerDetails}> {age} </Text>
+            <Text style={styles.contactHeader}> Age </Text>
+            <Text style={styles.contactDetails}> {age} </Text>
 
-            <Text style={styles.detailsHeader}> Gender </Text>
-            <Text style={styles.headerDetails}> {gender} </Text>
+            <Text style={styles.contactHeader}> Gender </Text>
+            <Text style={styles.contactDetails}> {gender} </Text>
           </View>
 
 
@@ -122,6 +122,24 @@ var styles = StyleSheet.create({
     color: 'white',
     fontSize: 18,
     marginLeft: 10,
+  },
+    contactHeader: {
+    color: 'white',
+    fontSize: 20,
+    marginBottom: 5,
+    marginLeft: 10,
+  },
+  contactDetails: {
+    color: 'green',
+    fontSize: 18,
+    marginBottom: 20,
+    marginLeft: 15,
+  },
+  contactHours: {
+    color: 'green',
+    fontSize: 14,
+    marginBottom: 5,
+    marginLeft: 15,
   },
 
 });

@@ -10,6 +10,7 @@ var React = require('react-native'),
     Root = require('./root'),
     Login = require('./login'),
     MyAccount = require('./myaccount');
+
 var {
   StyleSheet,
   Text,
@@ -34,9 +35,7 @@ var Filters = React.createClass({
 
   getInitialState: function() {
     return {
-      types1: [{label: 'Tennis', value: 0},{label: 'Basketball', value: 1},{label: 'Football', value: 2},{label: 'Baseball', value: 3} ],
-      value1: 0,
-      value1Index: 0,
+      types1: [{label: 'Soccer', value: 'Soccer Field'},{label: 'Tennis', value: 'Tennis Court'},{label: 'Basketball', value: 'Basketball Court'},{label: 'Baseball', value: 'Baseball Field'} ],
     }
   },
  render: function(){
@@ -49,28 +48,15 @@ var Filters = React.createClass({
           <Radio
             style={styles.radioButtons}
             radio_props={this.state.types1}
-            initial={0}
             formHorizontal={false}
             labelHorizontal={true}
             buttonColor={'#46833d'}
             labelColor={'white'}
             animation={true}
-            onPress={(value, index) => {
-              this.setState({value1:value})
-              this.setState({value1Index:index})
-            }}
+            initial={null}
+            onPress={(sport) => {this.setState({sport:sport})}}
           />
-        <Text style={styles.selectedTab}>selected: {this.state.types1[this.state.value1Index].label}</Text>
           
-
-
-
-          <TextInput
-        style={styles.searchInput}
-        onChangeText={(sport)=>this.setState({sport})}
-        placeholder={'请输入商品名称商品'}
-        placeholderTextColor={'white'}
-        value={this.state.sport} />
         </View>
       <TouchableHighlight
           style={styles.loginButton}
@@ -85,18 +71,19 @@ var Filters = React.createClass({
 });
 
 var styles = StyleSheet.create({
- container: {
+
+container: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#252525',
   },
-   loginContainer: {
+loginContainer: {
     flex: 0.15,
     justifyContent: 'center',
     alignItems: 'center',
   },
-  searchInput: {
+searchInput: {
     height: 70,
     width: 320,
     marginTop: 20,
@@ -142,6 +129,7 @@ var styles = StyleSheet.create({
   },
   radioOption: {
     backgroundColor: 'green',
+
   },
   radioButtons: {
     paddingTop: 5,

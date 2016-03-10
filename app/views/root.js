@@ -41,7 +41,6 @@ var styles = StyleSheet.create({
  mainContainer: {
   flex: 1,
   justifyContent: 'center',
-  backgroundColor: '#252525',
  },
  container: {
     flex: 1,

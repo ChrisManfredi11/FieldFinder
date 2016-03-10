@@ -16,6 +16,8 @@ var {
   ScrollView,
 } = React;
 
+var weekdayHours = 'placedetails.opening_hours.weekday_text'
+
 var Carousel = require('react-native-carousel');
 
 
@@ -30,6 +32,7 @@ class Details extends React.Component{
          super(props);
 
          this.state = {
+          weekdayHours: null,
           tennis: this.props.tennis,
           placeidURL: this.props.placeidURL,
         }

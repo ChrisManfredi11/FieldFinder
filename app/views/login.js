@@ -2,6 +2,7 @@
 
 var React = require('react-native'),
     Firebase = require('firebase'),
+    Auth0Lock = require('react-native-lock-ios'),
     Filters = require('./filters'),
     MyAccount = require('./myaccount');
 
@@ -16,6 +17,7 @@ var {
   RadioButtons,
   Navigator,
   NavigatorIOS,
+  Button,
 } = React;
 
 var FBSDKLogin = require('react-native-fbsdklogin');
@@ -26,8 +28,6 @@ var FBSDKCore = require('react-native-fbsdkcore');
 var {
   FBSDKAccessToken,
 } = FBSDKCore;
-
-
 
 class Login extends React.Component{
 
@@ -58,15 +58,14 @@ class Login extends React.Component{
       title: 'My Account',
     })
   }
+
   render(){
     return(
       <View style={styles.mainContainer}>
         <View style={styles.loginContainer}>
-          <Image style={styles.logo} source={require('../Images/logo.png')} />
-          <Text style={styles.logoText}> Field Finder </Text>
-        </View>
-        <View style={styles.socialmediaContainer}>
+          <Image style={styles.logo} source={require('../Images/Field-Finder.png')} />
             <View style={this.props.style}>
+
               <FBSDKLoginButton
                 style={styles.facebookButton}
                 onWillLogin={() => {
@@ -97,16 +96,15 @@ class Login extends React.Component{
                 readPermissions={[]}
                 publishPermissions={[]}/>
             </View>
-                              <TouchableHighlight onPress={this.goToFilters.bind(this)} placeholder="Username" style={styles.loginButton}>
-                    <Text style={styles.loginbuttonText}> Filters </Text>
-                  </TouchableHighlight>
+            
+            <TouchableHighlight onPress={this.goToFilters.bind(this)} placeholder="Username" style={styles.loginButton}>
+              <Text style={styles.loginbuttonText}> Filters </Text>
+            </TouchableHighlight>
 
+          </View>
           </View>
           
 
-
-
-        </View>
     )
   }
 };
@@ -157,7 +155,6 @@ var styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#252525',
   },
   loginContainer: {
     marginTop: 100,
@@ -202,14 +199,15 @@ var styles = StyleSheet.create({
   },
   facebookButton: {
     height: 115,
-    flexDirection: 'row',
     backgroundColor: '#3b5998',
     borderColor: 'white',
     borderWidth: 1,
     alignSelf: 'stretch',
     justifyContent: 'center',
-    width: 390,
+    width: 400,
     marginTop: 60,
+    marginLeft: 10,
+
   },
   loginbuttonText: {
     color: 'white',
@@ -243,15 +241,16 @@ var styles = StyleSheet.create({
   logo: {
     width: 200,
     height: 230,
-    marginLeft: 20,
+    marginBottom: 30,
+    marginLeft: 100,
+    marginTop: 30,
   },
   logoText: {
     color: 'white',
     alignItems: 'center',
     fontSize: 25,
-    marginLeft: 50,
     marginTop: 20,
-  }
+  },
 });
 
 module.exports = Login;

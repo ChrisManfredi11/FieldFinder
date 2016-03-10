@@ -22,16 +22,13 @@ var {
 import Radio, {RadioButton} from 'react-native-simple-radio-button'
 
 
-
-
-
 class FieldFinder extends React.Component {
   render() {
     return (
       <NavigatorIOS
         style={styles.bodyContainer}
         initialRoute={{
-          title: 'Login',
+          title: '',
           component: Login,
       }}/>
     )
