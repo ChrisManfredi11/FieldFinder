@@ -107,7 +107,9 @@ renderRow(rowData) {
 
 var styles = StyleSheet.create({
   appContainer:{
-    flex: 1
+    flex: 1,
+        backgroundColor: '#252525',
+
   },
   titleView:{
     paddingTop: 30,
@@ -130,7 +132,7 @@ var styles = StyleSheet.create({
     height: 36,
     flex: 2,
     flexDirection: 'row',
-    backgroundColor: '#48afdb',
+    backgroundColor: '#46833d',
     justifyContent: 'center',
     borderRadius: 4,
   },
@@ -146,9 +148,9 @@ var styles = StyleSheet.create({
     flex: 4,
     fontSize: 18,
     borderWidth: 1,
-    borderColor: '#48afdb',
+    borderColor: '#46833d',
     borderRadius: 4,
-    color: '#48BBEC'
+    color: '#46833d'
   },
   row: {
     flexDirection: 'row',
