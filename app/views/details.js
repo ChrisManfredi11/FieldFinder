@@ -94,6 +94,7 @@ render() {
   renderPlaceDetails(placedetails) {
 
 
+
         if(placedetails.photos) {
         var photoreference = placedetails.photos[0].photo_reference;
 
@@ -123,7 +124,12 @@ render() {
       }
       else {
         urlTest = "";
+        urlTest1 = "";
+        urlTest2 = "";
+
       }
+
+
 
 
     return (
@@ -183,7 +189,6 @@ render() {
 var styles = StyleSheet.create({
   mainContainer: {
     flex: 1,
-    backgroundColor: '#252525',
   },
   imagesContainer: {
     flex: 1,
@@ -203,18 +208,8 @@ var styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'flex-start',
   },
-  contactTitle: {
-    flex: 1,
-    color: 'white',
-    fontSize: 22,
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginBottom: 20,
-    marginTop: 10,
-
-  },
   contactHeader: {
-    color: 'white',
+    color: 'black',
     fontSize: 18,
     marginBottom: 5,
     marginLeft: 10,

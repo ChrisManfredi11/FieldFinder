@@ -20,12 +20,30 @@ var {
   Image,
   NavigatorIOS,
   Component,
+  PickerIOS,
+  Dimensions,
 } = React;
+
+var PickerItemIOS = PickerIOS.Item ;
+
+var array = [
+  {label: "Tennis",value:"Tennis"},
+  {label:"Basketball",value:"Basketball"},
+  {label:"Football",value:"Football"},
+  {label:"Baseball", value:"Baseball"},
+  {label:"Soccer", value:"Soccer"},
+]
+
 
 var Filters = React.createClass({
 
-  
-  Root(){
+  getInitialState: function() {
+    return {
+      selected: "",
+    };
+  },
+
+Root(){
     this.props.navigator.push({
             title: 'Spot Light',
             component: Root,
@@ -33,63 +51,58 @@ var Filters = React.createClass({
     });
   },
 
-  getInitialState: function() {
-    return {
-      types1: [{label: 'Soccer', value: 'Soccer Field'},{label: 'Tennis', value: 'Tennis Court'},{label: 'Basketball', value: 'Basketball Court'},{label: 'Baseball', value: 'Baseball Field'} ],
-    }
-  },
+
  render: function(){
 
-   return (
 
+
+    return (
       <View style={styles.container}>
-        <View style={styles.loginContainer}>
+        
+        <PickerIOS
+          style={styles.pickerios}
+          selectedValue={this.state.selected}
+          onValueChange={(sport) => this.setState({sport})}>
+          {array.map((obj) => (
+            <PickerItemIOS
+              key={obj.value+obj.label}
+              value={obj.value}
+              label={obj.label}
+            />
+          ))}
+        </PickerIOS>
 
-          <Radio
-            style={styles.radioButtons}
-            radio_props={this.state.types1}
-            formHorizontal={false}
-            labelHorizontal={true}
-            buttonColor={'#46833d'}
-            labelColor={'white'}
-            animation={true}
-            initial={null}
-            onPress={(sport) => {this.setState({sport:sport})}}
-          />
-          
-        </View>
-      <TouchableHighlight
+        <TouchableHighlight
           style={styles.loginButton}
           onPress={() => this.Root()}>
           <Text style={styles.buttonText}> Filter Results </Text>
         </TouchableHighlight>
-
+      
       </View>
-
-   );
- }
+    );
+  },
 });
 
 var styles = StyleSheet.create({
 
-container: {
+container: { 
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#252525',
   },
+label: {
+  color: 'white',
+},
 loginContainer: {
-    flex: 0.15,
-    justifyContent: 'center',
-    alignItems: 'center',
+  flexDirection: 'row',
+  flexWrap: 'wrap',
+  marginTop: 60,
   },
 searchInput: {
     height: 70,
     width: 320,
-    marginTop: 20,
-    borderColor: 'white',
+    marginTop: 80,
+    borderColor: 'black',
     borderWidth: 2,
-    color: 'white',
+    color: 'black',
     paddingLeft: 10,
   },
   welcome: {
@@ -112,12 +125,13 @@ searchInput: {
     buttonText: {
     color: 'white',
     textAlign: 'center',
+    marginTop: 55,
   },
   loginButton: {
     backgroundColor: '#46833d',
     borderColor: 'white',
     borderRadius: 5,
-    height: 115,
+    height: 125,
     width: 400,
     borderWidth: 1,
     justifyContent: 'center',
@@ -126,6 +140,13 @@ searchInput: {
   loginbuttonText: {
     color: 'white',
     textAlign: 'center',
+  },
+  sportButton: {
+    backgroundColor: '#46833d',
+    borderColor: 'white',
+    height: 123,
+    width: 187,
+    borderWidth: 1,
   },
   radioOption: {
 

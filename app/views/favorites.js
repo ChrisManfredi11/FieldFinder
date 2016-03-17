@@ -108,7 +108,6 @@ renderRow(rowData) {
 var styles = StyleSheet.create({
   appContainer:{
     flex: 1,
-        backgroundColor: '#252525',
 
   },
   titleView:{
