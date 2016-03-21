@@ -26,8 +26,8 @@ class SpotLight extends React.Component{
          this.state = {
             placeidURL: null,
             photoImage: 'null',
-             isLoading: true,
-             dataSource: new ListView.DataSource({
+            isLoading: true,
+            dataSource: new ListView.DataSource({
                  rowHasChanged: (row1, row2) => row1 !== row2
              })
          };

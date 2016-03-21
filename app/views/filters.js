@@ -2,7 +2,6 @@
 
 import Radio, {RadioButton} from 'react-native-simple-radio-button'
 
-
 var React = require('react-native'),
     TabBar = require('../components/tabbar'),
     SpotLight = require('../components/spotlight'),
@@ -27,9 +26,9 @@ var {
 var PickerItemIOS = PickerIOS.Item ;
 
 var array = [
-  {label: "Tennis",value:"Tennis"},
-  {label:"Basketball",value:"Basketball"},
-  {label:"Football",value:"Football"},
+  {label: "Tennis", value:"Tennis"},
+  {label:"Basketball", value:"Basketball"},
+  {label:"Football", value:"Football"},
   {label:"Baseball", value:"Baseball"},
   {label:"Soccer", value:"Soccer"},
 ]
@@ -39,7 +38,7 @@ var Filters = React.createClass({
 
   getInitialState: function() {
     return {
-      selected: "",
+    
     };
   },
 
@@ -47,8 +46,25 @@ Root(){
     this.props.navigator.push({
             title: 'Spot Light',
             component: Root,
-            passProps: {sport: this.state.sport, navigator: this.props.navigator}
+            passProps: {sport: this.state.sport, navigator: this.props.navigator, latitude: this.props.latitude, longitude: this.props.longitude}
     });
+  },
+
+componentWillMount: function() {
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        var initialPosition = JSON.stringify(position);
+      },
+      (error) => alert(error.message),
+      {enableHighAccuracy: true, timeout: 20000, maximumAge: 1000}
+    );
+    this.watchID = navigator.geolocation.watchPosition((position) => {
+      var lastPosition = JSON.stringify(position);
+      this.setState({currentPos: {latitude: position.coords.latitude, longitude: position.coords.longitude, latitudeDelta: 0.2, longitudeDelta: 0.2}})
+    })
+  },
+ componentWillUnmount: function() {
+    navigator.geolocation.clearWatch(this.watchID);
   },
 
 

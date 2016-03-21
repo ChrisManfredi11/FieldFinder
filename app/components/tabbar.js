@@ -23,7 +23,9 @@ class TabBar extends React.Component{
     console.log(this.props.sport);
     this.state = {
       selectedTab: 'SpotLight',
-      sport: this.props.sport
+      sport: this.props.sport,
+      latitude: this.props.latitude,
+      longitude: this.props.longitude
     }
   }
 
@@ -39,7 +41,8 @@ class TabBar extends React.Component{
             });
           }}>
           
-          <SpotLight sport={this.state.sport} navigator={this.props.navigator} />
+          <SpotLight sport={this.state.sport} navigator={this.props.navigator} latitude={this.props.latitude}
+          longitude={this.props.longitude} />
           
           </TabBarIOS.Item>
           

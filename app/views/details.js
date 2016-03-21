@@ -1,7 +1,8 @@
 'use strict';
 
 var React = require('react-native'),
-    SpotLight = require('./spotlight.js');
+    SpotLight = require('./spotlight.js'),
+    SlidableTabBar = require('react-native-slidable-tab-bar');
 
 var {
   StyleSheet,
@@ -16,14 +17,13 @@ var {
   ScrollView,
 } = React;
 
-var weekdayHours = 'placedetails.opening_hours.weekday_text'
-
 var Carousel = require('react-native-carousel');
 
 
 var Static_URL = 'https://maps.googleapis.com/maps/api/place/details/json?placeid=ChIJdRyiowtw54gRg5WRcBBWs9s&key=AIzaSyA93qzAQmirXxVTyxotuBIzmX62tIBEAf0';
 
 // var Request_URL = 'https://maps.googleapis.com/maps/api/place/details/json?placeid='+this.props.tennis+'&key=AIzaSyA93qzAQmirXxVTyxotuBIzmX62tIBEAf0';
+
 
 class Details extends React.Component{
 
@@ -36,8 +36,6 @@ class Details extends React.Component{
           tennis: this.props.tennis,
           placeidURL: this.props.placeidURL,
         }
-
-
       }
 
 
@@ -169,9 +167,8 @@ render() {
           
           <Text style={styles.contactHeader}> Location Phone Number </Text>
           <Text style={styles.contactDetails}>{placedetails.formatted_phone_number}</Text>
-        
-        
-          <Text style={styles.contactHeader}> Hours Of Operation </Text>
+
+        <Text style={styles.contactHeader}> Hours Of Operation </Text>
           <Text style={styles.contactHours}>{placedetails.opening_hours.weekday_text[0]}</Text>
           <Text style={styles.contactHours}>{placedetails.opening_hours.weekday_text[1]}</Text>
           <Text style={styles.contactHours}>{placedetails.opening_hours.weekday_text[2]}</Text>
@@ -179,6 +176,7 @@ render() {
           <Text style={styles.contactHours}>{placedetails.opening_hours.weekday_text[4]}</Text>
           <Text style={styles.contactHours}>{placedetails.opening_hours.weekday_text[5]}</Text>
           <Text style={styles.contactHours}>{placedetails.opening_hours.weekday_text[6]}</Text>
+
 
         </View>
       </ScrollView>
