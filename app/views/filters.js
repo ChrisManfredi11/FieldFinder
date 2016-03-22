@@ -2,6 +2,7 @@
 
 import Radio, {RadioButton} from 'react-native-simple-radio-button'
 
+
 var React = require('react-native'),
     TabBar = require('../components/tabbar'),
     SpotLight = require('../components/spotlight'),
@@ -26,9 +27,10 @@ var {
 var PickerItemIOS = PickerIOS.Item ;
 
 var array = [
-  {label: "Tennis", value:"Tennis"},
-  {label:"Basketball", value:"Basketball"},
-  {label:"Football", value:"Football"},
+  {label: "Select A Sport"},
+  {label: "Tennis",value:"Tennis"},
+  {label:"Basketball",value:"Basketball"},
+  {label:"Football",value:"Football"},
   {label:"Baseball", value:"Baseball"},
   {label:"Soccer", value:"Soccer"},
 ]
@@ -38,7 +40,7 @@ var Filters = React.createClass({
 
   getInitialState: function() {
     return {
-    
+      selected: "",
     };
   },
 
@@ -46,25 +48,8 @@ Root(){
     this.props.navigator.push({
             title: 'Spot Light',
             component: Root,
-            passProps: {sport: this.state.sport, navigator: this.props.navigator, latitude: this.props.latitude, longitude: this.props.longitude}
+            passProps: {sport: this.state.sport, navigator: this.props.navigator}
     });
-  },
-
-componentWillMount: function() {
-    navigator.geolocation.getCurrentPosition(
-      (position) => {
-        var initialPosition = JSON.stringify(position);
-      },
-      (error) => alert(error.message),
-      {enableHighAccuracy: true, timeout: 20000, maximumAge: 1000}
-    );
-    this.watchID = navigator.geolocation.watchPosition((position) => {
-      var lastPosition = JSON.stringify(position);
-      this.setState({currentPos: {latitude: position.coords.latitude, longitude: position.coords.longitude, latitudeDelta: 0.2, longitudeDelta: 0.2}})
-    })
-  },
- componentWillUnmount: function() {
-    navigator.geolocation.clearWatch(this.watchID);
   },
 
 
@@ -77,7 +62,7 @@ componentWillMount: function() {
         
         <PickerIOS
           style={styles.pickerios}
-          selectedValue={this.state.selected}
+          selectedValue={this.state.sport}
           onValueChange={(sport) => this.setState({sport})}>
           {array.map((obj) => (
             <PickerItemIOS
@@ -103,6 +88,7 @@ var styles = StyleSheet.create({
 
 container: { 
     flex: 1,
+    marginTop: 60,
   },
 label: {
   color: 'white',
@@ -141,17 +127,15 @@ searchInput: {
     buttonText: {
     color: 'white',
     textAlign: 'center',
-    marginTop: 55,
+    fontSize: 20,
   },
   loginButton: {
     backgroundColor: '#46833d',
-    borderColor: 'white',
-    borderRadius: 5,
-    height: 125,
+    height: 100,
     width: 400,
-    borderWidth: 1,
     justifyContent: 'center',
     alignItems: 'center',
+    marginTop: 30,
   },
   loginbuttonText: {
     color: 'white',

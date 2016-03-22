@@ -2,7 +2,7 @@
 
 var React = require('react-native'),
     SpotLight = require('./spotlight.js'),
-    SlidableTabBar = require('react-native-slidable-tab-bar');
+    Swiper = require('react-native-swiper');
 
 var {
   StyleSheet,
@@ -17,13 +17,14 @@ var {
   ScrollView,
 } = React;
 
+var weekdayHours = 'placedetails.opening_hours.weekday_text'
+
 var Carousel = require('react-native-carousel');
 
 
 var Static_URL = 'https://maps.googleapis.com/maps/api/place/details/json?placeid=ChIJdRyiowtw54gRg5WRcBBWs9s&key=AIzaSyA93qzAQmirXxVTyxotuBIzmX62tIBEAf0';
 
 // var Request_URL = 'https://maps.googleapis.com/maps/api/place/details/json?placeid='+this.props.tennis+'&key=AIzaSyA93qzAQmirXxVTyxotuBIzmX62tIBEAf0';
-
 
 class Details extends React.Component{
 
@@ -36,6 +37,8 @@ class Details extends React.Component{
           tennis: this.props.tennis,
           placeidURL: this.props.placeidURL,
         }
+
+
       }
 
 
@@ -155,20 +158,25 @@ render() {
       </Carousel>
       </View>
       
-      <ScrollView style={styles.detailsContainer}>
-        <View style={styles.contactTitleContainer}>
+
+       <View style={styles.contactTitleContainer}>
           
           <Text style={styles.contactTitle}>{placedetails.name}</Text>
         </View>
-        <View style={styles.contactContainer}>
-          
+
+       
+        <Swiper style={styles.wrapper} showsButtons={true}>
+    <View style={styles.detailsContainer}>
           <Text style={styles.contactHeader}> Location Address </Text>
           <Text style={styles.contactDetails}>{placedetails.formatted_address}</Text>
           
           <Text style={styles.contactHeader}> Location Phone Number </Text>
           <Text style={styles.contactDetails}>{placedetails.formatted_phone_number}</Text>
+          </View>
 
-        <Text style={styles.contactHeader}> Hours Of Operation </Text>
+        <View style={styles.detailsContainer}>
+      
+          <Text style={styles.contactHeader}> Hours Of Operation </Text>
           <Text style={styles.contactHours}>{placedetails.opening_hours.weekday_text[0]}</Text>
           <Text style={styles.contactHours}>{placedetails.opening_hours.weekday_text[1]}</Text>
           <Text style={styles.contactHours}>{placedetails.opening_hours.weekday_text[2]}</Text>
@@ -176,10 +184,9 @@ render() {
           <Text style={styles.contactHours}>{placedetails.opening_hours.weekday_text[4]}</Text>
           <Text style={styles.contactHours}>{placedetails.opening_hours.weekday_text[5]}</Text>
           <Text style={styles.contactHours}>{placedetails.opening_hours.weekday_text[6]}</Text>
+          </View>
 
-
-        </View>
-      </ScrollView>
+        </Swiper>
     </View>
     );
   }
@@ -188,11 +195,19 @@ var styles = StyleSheet.create({
   mainContainer: {
     flex: 1,
   },
+  wrapper:{
+    marginTop:5,
+  },
+  alignSwipper:{
+
+  },
   imagesContainer: {
     flex: 1,
   },
   detailsContainer: {
-    flex: 2,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: 20,
   },
   hoursContainer: {
     flex: 1,
@@ -201,6 +216,7 @@ var styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+    marginTop: 20,
   },
   contactContainer: {
     flex: 1,
@@ -210,19 +226,16 @@ var styles = StyleSheet.create({
     color: 'black',
     fontSize: 18,
     marginBottom: 5,
-    marginLeft: 10,
   },
   contactDetails: {
     color: 'green',
     fontSize: 14,
     marginBottom: 20,
-    marginLeft: 15,
   },
   contactHours: {
     color: 'green',
     fontSize: 14,
     marginBottom: 5,
-    marginLeft: 15,
   },
   image: {
     width: 380,

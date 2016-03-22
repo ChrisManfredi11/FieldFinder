@@ -131,7 +131,6 @@ var styles = StyleSheet.create({
     backgroundColor: 'transparent',
   },
   imageBox: {
-    marginTop: 10,
     alignItems: 'center',
     flexDirection: 'column',
   },
@@ -182,29 +181,26 @@ var styles = StyleSheet.create({
   },
   loginButton: {
     backgroundColor: '#46833d',
-    borderColor: 'white',
     borderRadius: 5,
-    height: 115,
+    height: 100,
     width: 400,
-    borderWidth: 1,
     justifyContent: 'center',
     alignItems: 'center',
   },
   facebookButton: {
-    height: 115,
+    height: 100,
     backgroundColor: '#3b5998',
-    borderColor: 'white',
-    borderWidth: 1,
     alignSelf: 'stretch',
     justifyContent: 'center',
     width: 400,
-    marginTop: 60,
+    marginTop: 80,
     marginLeft: 10,
 
   },
   loginbuttonText: {
     color: 'white',
     textAlign: 'center',
+    fontSize: 20,
   },
   socialbuttonText: {
     fontSize: 20,
