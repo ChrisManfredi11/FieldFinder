@@ -71,8 +71,9 @@ var MyAccount = React.createClass ({
     gender = this.state.gender;
     return(
       <View style={styles.mainContainer}>
+       <Image style={styles.image} source={{uri: pic}}/>
           <View style={styles.detailsContainer}>
-          <Image style={styles.image} source={{uri: pic}}/>
+         
 
             <Text style={styles.contactHeader}> Name </Text>
             <Text style={styles.contactDetails}> {name}</Text>
@@ -97,6 +98,8 @@ var styles = StyleSheet.create({
   },
   detailsContainer: {
     flex: 1,
+    alignItems: 'center',
+    marginTop: 60,
   },
   image: {
     width: 140,
@@ -115,30 +118,25 @@ var styles = StyleSheet.create({
     color: 'green',
     fontSize: 14,
     marginTop: 20,
-    marginLeft: 10,
   },
   headerDetails: {
     color: 'white',
     fontSize: 18,
-    marginLeft: 10,
   },
     contactHeader: {
-    color: 'white',
+    color: 'black',
     fontSize: 20,
     marginBottom: 5,
-    marginLeft: 10,
   },
   contactDetails: {
     color: 'green',
     fontSize: 18,
     marginBottom: 20,
-    marginLeft: 15,
   },
   contactHours: {
     color: 'green',
     fontSize: 14,
     marginBottom: 5,
-    marginLeft: 15,
   },
 
 });
