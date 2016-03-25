@@ -88,7 +88,7 @@ var styles = StyleSheet.create({
 
 container: { 
     flex: 1,
-    marginTop: 60,
+    marginTop: 90,
   },
 label: {
   color: 'white',
@@ -135,7 +135,7 @@ searchInput: {
     width: 400,
     justifyContent: 'center',
     alignItems: 'center',
-    marginTop: 30,
+    marginTop: 140,
   },
   loginbuttonText: {
     color: 'white',

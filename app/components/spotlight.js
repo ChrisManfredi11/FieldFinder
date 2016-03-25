@@ -87,7 +87,7 @@ class SpotLight extends React.Component{
         var urlTest = urlDeff + photoreference + apiKey;
       }
       else {
-        urlTest = 'http://www.moillusions.com/wp-content/uploads/photos1.blogger.com/blogger/5639/2020/400/slide0009_image021.jpg';
+        urlTest = 'http://i812.photobucket.com/albums/zz50/yankeesfan1150/Field-Finder_zpsivwxvacw.png';
       }
 
       if(tennis.place_id) {

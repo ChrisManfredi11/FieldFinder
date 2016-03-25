@@ -164,39 +164,54 @@ render() {
           <Text style={styles.contactTitle}>{placedetails.name}</Text>
         </View>
 
-       
+        
         <Swiper style={styles.wrapper} showsButtons={true}>
-    <View style={styles.detailsContainer}>
-          <Text style={styles.contactHeader}> Location Address </Text>
-          <Text style={styles.contactDetails}>{placedetails.formatted_address}</Text>
+
+          <View style={styles.location}>
+
+  
+            
+            <Text style={styles.contactHeader}> Location Address </Text>
+            <Text style={styles.contactDetails}>{placedetails.formatted_address}</Text>
+            
+            <Text style={styles.contactHeader}> Location Phone Number </Text>
+            <Text style={styles.contactDetails}>{placedetails.formatted_phone_number}</Text>
+
+            <Text style={styles.arrowButtonR}>›</Text>
+
+                                
           
-          <Text style={styles.contactHeader}> Location Phone Number </Text>
-          <Text style={styles.contactDetails}>{placedetails.formatted_phone_number}</Text>
           </View>
 
-        <View style={styles.detailsContainer}>
-      
-          <Text style={styles.contactHeader}> Hours Of Operation </Text>
-          <Text style={styles.contactHours}>{placedetails.opening_hours.weekday_text[0]}</Text>
-          <Text style={styles.contactHours}>{placedetails.opening_hours.weekday_text[1]}</Text>
-          <Text style={styles.contactHours}>{placedetails.opening_hours.weekday_text[2]}</Text>
-          <Text style={styles.contactHours}>{placedetails.opening_hours.weekday_text[3]}</Text>
-          <Text style={styles.contactHours}>{placedetails.opening_hours.weekday_text[4]}</Text>
-          <Text style={styles.contactHours}>{placedetails.opening_hours.weekday_text[5]}</Text>
-          <Text style={styles.contactHours}>{placedetails.opening_hours.weekday_text[6]}</Text>
+          <View style={styles.hoursofoperation}>
+
+           
+
+        
+            <Text style={styles.contactHeader}> Hours Of Operation </Text>
+            <Text style={styles.contactHours}>{placedetails.opening_hours.weekday_text[0]}</Text>
+            <Text style={styles.contactHours}>{placedetails.opening_hours.weekday_text[1]}</Text>
+            <Text style={styles.contactHours}>{placedetails.opening_hours.weekday_text[2]}</Text>
+            <Text style={styles.contactHours}>{placedetails.opening_hours.weekday_text[3]}</Text>
+            <Text style={styles.contactHours}>{placedetails.opening_hours.weekday_text[4]}</Text>
+            <Text style={styles.contactHours}>{placedetails.opening_hours.weekday_text[5]}</Text>
+            <Text style={styles.contactHours}>{placedetails.opening_hours.weekday_text[6]}</Text>
+
+            <Text style={styles.arrowButtonL}> ‹ </Text>
+          
           </View>
 
         </Swiper>
-    </View>
+
+
+        </View>
     );
   }
 };
 var styles = StyleSheet.create({
   mainContainer: {
     flex: 1,
-  },
-  wrapper:{
-    marginTop:5,
+    marginTop: 20,
   },
   alignSwipper:{
 
@@ -212,11 +227,36 @@ var styles = StyleSheet.create({
   hoursContainer: {
     flex: 1,
   },
+  location: {
+
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: 30,
+
+  },
+  hoursofoperation: {
+
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  arrowButtonR: {
+    marginLeft: 300,
+    fontSize: 25,
+  },
+  arrowButtonL: {
+    marginRight: 300,
+    fontSize: 25,
+    marginTop: 8,
+  },
   contactTitleContainer: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
     marginTop: 20,
+  },
+  contactTitle: {
+    fontSize: 20,
+    color: 'black',
   },
   contactContainer: {
     flex: 1,
@@ -226,6 +266,7 @@ var styles = StyleSheet.create({
     color: 'black',
     fontSize: 18,
     marginBottom: 5,
+    marginTop: 30,
   },
   contactDetails: {
     color: 'green',

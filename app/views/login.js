@@ -47,7 +47,7 @@ class Login extends React.Component{
   goToFilters(){
     this.props.navigator.push({
       component: Filters,
-      title: 'Filters',
+      title: '',
       passProps: {navigator: this.props.navigator}
     })
   }
@@ -98,7 +98,7 @@ class Login extends React.Component{
             </View>
             
             <TouchableHighlight onPress={this.goToFilters.bind(this)} placeholder="Username" style={styles.loginButton}>
-              <Text style={styles.loginbuttonText}> Filters </Text>
+              <Text style={styles.loginbuttonText}> Select A Sport </Text>
             </TouchableHighlight>
 
           </View>
